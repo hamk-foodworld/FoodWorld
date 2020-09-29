@@ -1,31 +1,83 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Button } from 'react-native';
+import { Card, Icon } from 'react-native-elements'
 
 const RecipeItem = (props) => {
+    const [favorite, setFavorite] = useState(false);
+    
     return (
-        <View style={styles.listItemStyle}>
-            <Text>Title: {props.title}</Text>
-            <Image
-                fadeDuration={5000}
-                source={{ uri: props.pic }}
-                style={styles.image} resizeMode='cover' />
-            <Text>Hearts: {props.hearts}</Text>
-            <Text>Cooking Time: {props.cookingTime}</Text>
+        <View>
+            <Card>
+                <Card.Title style={styles.title}>{props.title}</Card.Title>
+                <Card.Image source={props.pic} />
+                <View style={styles.icon}>
+                    <Icon
+                        solid
+                        name='heart'
+                        size={30}
+                        color='#9919d4'
+                        type='font-awesome-5'
+                    />
+                    <Text style={styles.iconText}>{props.rating}</Text>
+                    <Icon
+                        name='clock'
+                        size={30}
+                        type='font-awesome-5'
+                    />
+                    <Text style={styles.iconText}>{props.cookingTime}</Text>
+                    <Icon
+                        solid={favorite}
+                        name='heart'
+                        size={30}
+                        color='red'
+                        type='font-awesome-5'
+                        onPress={() => setFavorite(!favorite)}
+                    />
+                </View>
+                <View style={styles.icon}>
+                    <Icon
+                        name='bread-slice'
+                        size={30}
+                        type='font-awesome-5'
+                    />
+                    <Icon
+                        name='leaf'
+                        size={30}
+                        type='font-awesome-5'
+                    />
+                    <Icon
+                        name='seedling'
+                        size={30}
+                        type='font-awesome-5'
+                    />
+                    <Icon
+                        name='cheese'
+                        size={30}
+                        type='font-awesome-5'
+                    />
+                </View>
+            </Card>
         </View>
     );
 }
 const styles = StyleSheet.create({
-    listItemStyle: {
-        borderWidth: 1,
-        borderColor: 'blue',
-        padding: 5,
-        backgroundColor: "#abc",
-        marginVertical: 5,
+    title: {
+        fontSize: 22
     },
-    image:{
-      height:'100px',
-      width:'100px'
+    icon: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 10,
+    },
+    iconText: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    image: {
+        height: '100px',
+        width: '100px'
     }
 });
 
