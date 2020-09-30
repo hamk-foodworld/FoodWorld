@@ -7,10 +7,10 @@ const RecipeList = (props) => {
     const [recipeList, addRecipe] = useState([]);
 
     useEffect(() => {
-        fetchRecipe();
+        fetchRecipes();
     })
 
-    async function fetchRecipe() {
+    async function fetchRecipes() {
         await fetch("https://able-groove-288106.appspot.com/rest/foodservice/getRecipe")
             .then(parameter => parameter.json())
             .then(anotherParameter => addRecipe(anotherParameter));
@@ -23,6 +23,7 @@ const RecipeList = (props) => {
                 data={recipeList}
                 renderItem={itemData =>
                     <RecipeItem
+                        id={itemData.item.iRecipeID}
                         title={itemData.item.sName}
                         rating={itemData.item.iRating}
                         cookingTime={itemData.item.iCookingTime}
