@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
-
-import { Input, CheckBox, ListItem, Button, Icon } from 'react-native-elements';
-
+import { View, ScrollView } from 'react-native';
+import { Input, CheckBox, ListItem, Button } from 'react-native-elements';
 import IngredientInput from './IngredientInput';
 
 const RecipeInput = (props) => {
@@ -12,7 +10,7 @@ const RecipeInput = (props) => {
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [preperationTime, setPreperationTime] = useState(0);
+    const [preparationTime, setPreperationTime] = useState(0);
     const [preperation, setPreperation] = useState('');
     const [amountPeople, setAmountPeople] = useState(1);
     const [pictureUrl, setPictureUrl] = useState('');
@@ -42,11 +40,38 @@ const RecipeInput = (props) => {
     }
 
     const addRecipe = () => {
-        const newRecipe = { name, description, preperationTime, preperation, amountPeople, pictureUrl,
-            vegetarian, vegan, lactose, gluten, ingredients: ingredientList };
-            
+        const newRecipe = {
+            sName: name,
+            iCookingTime: preparationTime,
+            sDescription: description,
+            iAmountPeople: amountPeople,
+            sPreparation: preperation,
+            byVegetarian: vegetarian ? 1 : 0,
+            byVegan: vegan ? 1 : 0,
+            byLactose: lactose ? 1 : 0,
+            byGluten: gluten ? 1 : 0,
+            sPic: pictureUrl,
+            ingredients: ingredientList,
+            // unitID
+            // countryID
+        };
+
         console.log('possible post request body: ' + newRecipe);
         console.log(newRecipe);
+    }
+
+    async function addData(reqBody) {
+        const response = await fetch("https://able-groove-288106.appspot.com/rest/foodservice",
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reqBody)
+            });
+
+        const responseData = await response.json();
+        console.log(responseData);
     }
 
     const addIngredientToList = (name, amount, unit) => {
@@ -59,7 +84,7 @@ const RecipeInput = (props) => {
     }
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView>
             <Input label="Name" onChangeText={nameInputHandler} />
             <Input label="Description" onChangeText={descriptionInputHandler} />
             <Input label="Preparation time" onChangeText={preperationTimeInputHandler} />
@@ -96,7 +121,7 @@ const RecipeInput = (props) => {
                     ingredientList.map((item, i) => (
                         <ListItem key={i} bottomDivider>
                             <ListItem.Content>
-                                <ListItem.Title>{item.amount} {item.unit} {item.name}</ListItem.Title>
+                                <ListItem.Title>{item.amount} {item.unit.name} {item.name}</ListItem.Title>
                             </ListItem.Content>
                         </ListItem>
                     ))
@@ -109,12 +134,5 @@ const RecipeInput = (props) => {
         </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        //margin: 30,
-    }
-});
 
 export default RecipeInput;

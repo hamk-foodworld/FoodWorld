@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { View, FlatList, Button } from 'react-native';
 import RecipeItem from './RecipeItem';
 
 const RecipeList = (props) => {
 
     const [recipeList, addRecipe] = useState([]);
+
+    useEffect(() => {
+        fetchRecipe();
+    })
 
     async function fetchRecipe() {
         await fetch("https://able-groove-288106.appspot.com/rest/foodservice/getRecipe")
@@ -15,7 +18,6 @@ const RecipeList = (props) => {
 
     return (
         <View>
-            <Button onPress={() => fetchRecipe()} title="Load" />
             <FlatList
                 keyExtractor={item => item.iRecipeID.toString()}
                 data={recipeList}

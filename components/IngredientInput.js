@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, TextInput, Text, Button, Modal } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 
@@ -8,7 +8,18 @@ const IngredientInput = (props) => {
 
     const [name, setName] = useState('');
     const [amount, setAmount] = useState(0);
-    const [unit, setUnit] = useState("g");
+    const [unit, setUnit] = useState(1);
+    const [unitList, addUnit] = useState([]);
+
+    useEffect(() => {
+        fetchUnits();
+    })
+
+    async function fetchUnits() {
+        await fetch("https://able-groove-288106.appspot.com/rest/foodservice/getUnit")
+            .then(parameter => parameter.json())
+            .then(anotherParameter => addUnit(anotherParameter));
+    }
 
     const nameInputHandler = (enteredText) => {
         setName(enteredText);
@@ -19,17 +30,19 @@ const IngredientInput = (props) => {
     }
 
     const addIngredient = () => {
-        props.onAddIngredient(name, amount, unit);
+        const unitName = unitList.filter(v => v.iID == unit)[0].sName;
+        const unitObj = { id: unit, name: unitName }
+        props.onAddIngredient(name, amount, unitObj);
         setName('');
         setAmount(0);
-        setUnit('g');
+        setUnit(1);
     }
 
     const cancelIngredient = () => {
         props.onCancelIngredient();
         setName('');
         setAmount(0);
-        setUnit('g');
+        setUnit(1);
     }
 
     return (
@@ -43,8 +56,11 @@ const IngredientInput = (props) => {
                     style={styles.fullScreen}
                     onValueChange={(itemValue, itemIndex) => setUnit(itemValue)}
                 >
-                    <Picker.Item label="g" value="g" />
-                    <Picker.Item label="kg" value="kg" />
+                    {
+                        unitList.map((item, i) => (
+                            <Picker.Item key={i} label={item.sName} value={item.iID} />
+                        ))
+                    }
                 </Picker>
 
                 <View style={styles.buttonView}>
