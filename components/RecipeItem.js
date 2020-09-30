@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 
+
 import { View, Text, TouchableWithoutFeedback, StyleSheet, Image, Button } from 'react-native';
 import { Card, Icon } from 'react-native-elements'
+import style from '../styles/Style'
+
 
 const RecipeItem = (props) => {
     const [favorite, setFavorite] = useState(false);
@@ -12,6 +15,7 @@ const RecipeItem = (props) => {
 
     return (
         <View>
+
             <TouchableWithoutFeedback onPress={nextPageHandler}>
                 <Card>
                     <Card.Title style={styles.title}>{props.title}</Card.Title>
@@ -68,27 +72,9 @@ const RecipeItem = (props) => {
                     </View>
                 </Card>
             </TouchableWithoutFeedback>
+
         </View>
     );
 }
-const styles = StyleSheet.create({
-    title: {
-        fontSize: 22
-    },
-    icon: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 10,
-    },
-    iconText: {
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-    image: {
-        height: '100px',
-        width: '100px'
-    }
-});
 
 export default RecipeItem;
