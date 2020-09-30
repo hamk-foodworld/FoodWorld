@@ -1,30 +1,35 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 
-import { Input, CheckBox, ListItem, Icon } from 'react-native-elements';
+import { Input, CheckBox, ListItem, Button, Icon } from 'react-native-elements';
+
+import IngredientInput from './IngredientInput';
 
 const RecipeInput = (props) => {
 
     const [ingredientList, addIngredient] = useState([]);
+    const [isVisible, setVisibility] = useState(false);
+
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [preperationTime, setPreperationTime] = useState(0);
+    const [preperation, setPreperation] = useState('');
+    const [amountPeople, setAmountPeople] = useState(1);
+    const [pictureUrl, setPictureUrl] = useState('');
+
     const [vegetarian, setVegetarian] = useState(false);
     const [vegan, setVegan] = useState(false);
     const [lactose, setLactose] = useState(false);
     const [gluten, setGluten] = useState(false);
 
-    const addIngredientToList = () => {
-        //addIngredient([]);
+    const addIngredientToList = (name, amount, unit) => {
+        addIngredient(ingredientList => [...ingredientList, { name, amount, unit }]);
+        setVisibility(false);
     }
 
-    const list = [
-        {
-            title: 'Appointments',
-            icon: 'av-timer'
-        },
-        {
-            title: 'Trips',
-            icon: 'flight-takeoff'
-        }
-    ];
+    const cancelIngredientToList = () => {
+        setVisibility(false);
+    }
 
     return (
         <ScrollView style={styles.container}>
@@ -54,19 +59,26 @@ const RecipeInput = (props) => {
                 checked={gluten}
                 onPress={() => setGluten(!gluten)}
             />
-
+            <Button
+                title="Add ingredient"
+                onPress={() => setVisibility(true)}
+            />
+            <IngredientInput visibility={isVisible} onAddIngredient={addIngredientToList} onCancelIngredient={cancelIngredientToList} />
             <View>
                 {
-                    list.map((item, i) => (
+                    ingredientList.map((item, i) => (
                         <ListItem key={i} bottomDivider>
                             <ListItem.Content>
-                                <ListItem.Title>{item.title}</ListItem.Title>
+                                <ListItem.Title>{item.amount} {item.unit} {item.name}</ListItem.Title>
                             </ListItem.Content>
-                            <ListItem.Chevron />
                         </ListItem>
                     ))
                 }
             </View>
+            <Button
+                title="Save recipe"
+                onPress={() => console.log('saving...')}
+            />
         </ScrollView>
     );
 }
@@ -74,7 +86,7 @@ const RecipeInput = (props) => {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        margin: 30,
+        //margin: 30,
     }
 });
 
