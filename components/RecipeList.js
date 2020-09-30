@@ -1,55 +1,39 @@
 import React, { useState } from 'react';
 
-import { View, Text, FlatList, StyleSheet, Image, Button } from 'react-native';
+import { View, FlatList, Button } from 'react-native';
 import RecipeItem from './RecipeItem';
 
 const RecipeList = (props) => {
 
     const [recipeList, addRecipe] = useState([]);
 
-    const addRecipeToList = () => {
-        addRecipe(recipeList => [...recipeList, {
-            id: '1',
-            title: 'Brownies',
-            rating: '5',
-            cookingTime: '10',
-            pic: 'https://www.seriouseats.com/2018/03/20180413-brownie-mix-vicky-wasik-20-1500x1125.jpg'
-        }, {
-            id: '2',
-            title: 'Pancakes',
-            rating: '24',
-            cookingTime: '52',
-            pic: 'https://media.eggs.ca/assets/RecipePhotos/_resampled/FillWyIxMjgwIiwiNzIwIl0/Fluffy-Pancakes-New-CMS.jpg'
-        }]);
+    async function fetchRecipe() {
+        await fetch("https://able-groove-288106.appspot.com/rest/foodservice/getRecipe")
+            .then(parameter => parameter.json())
+            .then(anotherParameter => addRecipe(anotherParameter));
     }
 
     return (
-        <View style={styles.container}>
-            <Button onPress={addRecipeToList} title="Add" />
+        <View>
+            <Button onPress={() => fetchRecipe()} title="Load" />
             <FlatList
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.iRecipeID.toString()}
                 data={recipeList}
                 renderItem={itemData =>
                     <RecipeItem
-                        title={itemData.item.title}
-                        rating={itemData.item.rating}
-                        cookingTime={itemData.item.cookingTime}
-                        pic={itemData.item.pic}
-                        vegan={false}
-                        vegetarian={false}
-                        gluten={false}
-                        lactose={false}
+                        title={itemData.item.sName}
+                        rating={itemData.item.iRating}
+                        cookingTime={itemData.item.iCookingTime}
+                        pic={itemData.item.sPic}
+                        vegan={itemData.item.byVegan == 0 ? false : true}
+                        vegetarian={itemData.item.byVegetarian == 0 ? false : true}
+                        gluten={itemData.item.byGluten == 0 ? false : true}
+                        lactose={itemData.item.byLactose == 0 ? false : true}
                     />
                 }
             />
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        //width: '80%'
-    },
-});
 
 export default RecipeList;

@@ -10,7 +10,7 @@ const RecipeItem = (props) => {
         <View>
             <Card>
                 <Card.Title style={styles.title}>{props.title}</Card.Title>
-                <Card.Image source={props.pic} />
+                <Card.Image source={{ uri: props.pic}} />
                 <View style={styles.icon}>
                     <Icon
                         solid
@@ -40,21 +40,25 @@ const RecipeItem = (props) => {
                         name='bread-slice'
                         size={30}
                         type='font-awesome-5'
+                        color={props.gluten ? 'black' : 'lightgrey'}
                     />
                     <Icon
                         name='leaf'
                         size={30}
                         type='font-awesome-5'
+                        color={props.vegetarian ? 'black' : 'lightgrey'}
                     />
                     <Icon
                         name='seedling'
                         size={30}
                         type='font-awesome-5'
+                        color={props.vegan ? 'black' : 'lightgrey'}
                     />
                     <Icon
                         name='cheese'
                         size={30}
                         type='font-awesome-5'
+                        color={props.lactose ? 'black' : 'lightgrey'}
                     />
                 </View>
             </Card>
