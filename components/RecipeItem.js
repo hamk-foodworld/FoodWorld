@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { addFavorite } from '../sqlconnection/dbFavorite';
 
 import { View, Text, TouchableWithoutFeedback, StyleSheet, Image, Button } from 'react-native';
 import { Card, Icon } from 'react-native-elements'
@@ -8,6 +9,29 @@ const RecipeItem = (props) => {
 
     const nextPageHandler = () => {
         console.log(`navigating to following recipe id: ${props.id}`);
+    }
+
+    const favoriteHandler = () => {
+        if (favorite) {
+            // unfavorite -> update database
+
+        } else {
+            // favorite -> save as a new entry in database
+            console.log('saving favorite...');
+            saveFavorite();
+
+        }
+        setFavorite(!favorite)
+    }
+
+    async function saveFavorite() {
+        try {
+            const dbResult = await addFavorite(props.id);
+            console.log(dbResult);
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 
     return (
@@ -37,7 +61,7 @@ const RecipeItem = (props) => {
                             size={30}
                             color='red'
                             type='font-awesome-5'
-                            onPress={() => setFavorite(!favorite)}
+                            onPress={favoriteHandler}
                         />
                     </View>
                     <View style={styles.icon}>
