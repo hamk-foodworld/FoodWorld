@@ -22,6 +22,33 @@ const RecipeInput = (props) => {
     const [lactose, setLactose] = useState(false);
     const [gluten, setGluten] = useState(false);
 
+    const nameInputHandler = (enteredText) => {
+        setName(enteredText);
+    }
+    const descriptionInputHandler = (enteredText) => {
+        setDescription(enteredText);
+    }
+    const preperationTimeInputHandler = (enteredText) => {
+        setDescription(enteredText);
+    }
+    const preperationInputHandler = (enteredText) => {
+        setDescription(enteredText);
+    }
+    const amountPeopleInputHandler = (enteredText) => {
+        setDescription(enteredText);
+    }
+    const pictureUrlInputHandler = (enteredText) => {
+        setDescription(enteredText);
+    }
+
+    const addRecipe = () => {
+        const newRecipe = { name, description, preperationTime, preperation, amountPeople, pictureUrl,
+            vegetarian, vegan, lactose, gluten, ingredients: ingredientList };
+            
+        console.log('possible post request body: ' + newRecipe);
+        console.log(newRecipe);
+    }
+
     const addIngredientToList = (name, amount, unit) => {
         addIngredient(ingredientList => [...ingredientList, { name, amount, unit }]);
         setVisibility(false);
@@ -33,12 +60,12 @@ const RecipeInput = (props) => {
 
     return (
         <ScrollView style={styles.container}>
-            <Input label="Name" />
-            <Input label="Description" />
-            <Input label="Preparation time" />
-            <Input label="Preparation" />
-            <Input label="Amount of people" />
-            <Input label="Picture url" />
+            <Input label="Name" onChangeText={nameInputHandler} />
+            <Input label="Description" onChangeText={descriptionInputHandler} />
+            <Input label="Preparation time" onChangeText={preperationTimeInputHandler} />
+            <Input label="Preparation" onChangeText={preperationInputHandler} />
+            <Input label="Amount of people" onChangeText={amountPeopleInputHandler} />
+            <Input label="Picture url" onChangeText={pictureUrlInputHandler} />
             <CheckBox
                 title='Vegetarian'
                 checked={vegetarian}
@@ -77,7 +104,7 @@ const RecipeInput = (props) => {
             </View>
             <Button
                 title="Save recipe"
-                onPress={() => console.log('saving...')}
+                onPress={addRecipe}
             />
         </ScrollView>
     );
