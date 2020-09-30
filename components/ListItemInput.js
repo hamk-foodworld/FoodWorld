@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Button, Modal } from 'react-native';
-import {addItem} from '../database/Db';
+import {addItem} from '../sqlconnection/dbShop';
 
 const ListItemInput = (props) => {
 
