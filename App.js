@@ -6,7 +6,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeStackScreen from './screens/HomeScreen';
 import ShoppingList from './screens/ShoppingList';
 import Favorites from './screens/Favorites';
-import { Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements'
+
+
+
+
+
+
+
+
+
 
 
 
@@ -27,15 +36,13 @@ export default function App() {
             } else if (route.name === 'ShoppingList') {
               iconName = focused ? 'list-alt' : 'list-alt';
             }
-
-            else if (route.name==='Favorites'){
+            else if (route.name === 'Favorites') {
               iconName = focused ? 'heart' : 'heart-o';
-              
+
             }
 
             // You can return any component that you like here!
-            return <Icon name={iconName} size={size} color={color} type='font-awesome'/>;
-
+            return <Icon name={iconName} size={size} color={color} type='font-awesome' />;
           },
         })}
         tabBarOptions={{

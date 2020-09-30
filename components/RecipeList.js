@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Image, Button } from 'react-native';
 import RecipeItem from './RecipeItem';
 
+
+//currently not used as a component
+
 const RecipeList = (props) => {
 
     const [recipeList, addRecipe] = useState([]);
@@ -48,7 +51,7 @@ const RecipeList = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: '80%'
+        //width: '80%'
     },
 });
 
