@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { View, FlatList, Button } from 'react-native';
 import RecipeItem from './RecipeItem';
 
-
-//currently not used as a component
-
-const RecipeList = (props) => {
+const FavoriteList = (props) => {
 
     const [recipeList, addRecipe] = useState([]);
 
     useEffect(() => {
-        fetchRecipes();
+        fetchFavoriteRecipes();
     })
 
-    async function fetchRecipes() {
+    async function fetchFavoriteRecipes() {
+        // change following code to local database fetch
         await fetch("https://able-groove-288106.appspot.com/rest/foodservice/getRecipe")
             .then(parameter => parameter.json())
             .then(anotherParameter => addRecipe(anotherParameter));
@@ -22,6 +20,7 @@ const RecipeList = (props) => {
     return (
         <View>
             <FlatList
+                onpress
                 keyExtractor={item => item.iRecipeID.toString()}
                 data={recipeList}
                 renderItem={itemData =>
@@ -42,5 +41,4 @@ const RecipeList = (props) => {
     );
 }
 
-
-export default RecipeList;
+export default FavoriteList;

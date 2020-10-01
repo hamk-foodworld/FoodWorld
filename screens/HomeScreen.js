@@ -1,6 +1,8 @@
+
 import React, {useState, useEffect} from 'react';
-import { View, Text, Button, Image, StyleSheet, ScrollView, FlatList } from 'react-native';
-import { Header, Icon,ListItem, Avatar,Input  } from 'react-native-elements';
+import { View, Text, Image, StyleSheet, ScrollView, FlatList } from 'react-native';
+import { Header, Icon,ListItem, Avatar,Input,Button  } from 'react-native-elements';
+
 import { createStackNavigator } from '@react-navigation/stack';
 import Recipes from './Recipes';
 import styles from '../styles/Style';
@@ -47,12 +49,12 @@ const HomeScreen = (props) => {
         <View>
             <Header
                 centerComponent={{ text: 'Countries', style: styles.titletext }}
-                rightComponent={<Icon name="filter" type="font-awesome" color="white" />}
+                rightComponent={<Icon name="filter" type="font-awesome" color="white" onPress={() => props.navigation.goBack()}/>}
                 containerStyle={{
                     backgroundColor: 'darkred',
                 }}
             />
-            <View><Button
+            <View><Button buttonStyle={styles.button}
                 title="Go to Recipes"
                 onPress={() => props.navigation.navigate('Recipes')}
             /></View>
