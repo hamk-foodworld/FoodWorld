@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { View, FlatList, Button } from 'react-native';
 import RecipeItem from './RecipeItem';
 
-
-//currently not used as a component
-
 const RecipeList = (props) => {
 
     const [recipeList, addRecipe] = useState([]);
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchRecipes();
+        if (isLoading) {
+            setLoading(false);
+            fetchRecipes();
+        }
     })
 
     async function fetchRecipes() {

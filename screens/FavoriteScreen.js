@@ -2,8 +2,9 @@ import React from 'react';
 import { View, Text, Button, Image, StyleSheet } from 'react-native';
 import styles from '../styles/Style';
 import { Header } from 'react-native-elements';
+import FavoriteList from '../components/FavoriteList';
 
-const Favorites = (props) => {
+const FavoriteScreen = (props) => {
   return (
     <View>
       <Header
@@ -12,6 +13,7 @@ const Favorites = (props) => {
           backgroundColor: 'darkred',
         }}
       />
+      <FavoriteList />
     </View>
   );
 }
@@ -19,4 +21,4 @@ const Favorites = (props) => {
 
 
 
-export default Favorites;
+export default FavoriteScreen;

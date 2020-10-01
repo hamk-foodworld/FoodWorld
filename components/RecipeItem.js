@@ -4,7 +4,7 @@ import { addFavorite } from '../sqlconnection/dbFavorite';
 
 import { View, Text, TouchableWithoutFeedback, StyleSheet, Image, Button } from 'react-native';
 import { Card, Icon } from 'react-native-elements'
-import style from '../styles/Style'
+import styles from '../styles/Style'
 
 
 const RecipeItem = (props) => {

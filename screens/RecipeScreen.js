@@ -6,7 +6,7 @@ import styles from '../styles/Style';
 
 
 
-const Recipe = (props) => {
+const RecipeScreen = (props) => {
     const [hasError, setErrors] = useState(false);
 const [someError, setSomeErrors] = useState('');
 const [recepie, setRecepie] = useState({});
@@ -114,4 +114,4 @@ const [isLoading, setLoading] = useState(true);
 
 
 
-export default Recipe;
+export default RecipeScreen;

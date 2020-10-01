@@ -4,7 +4,7 @@ import { View, Text, Image, StyleSheet, ScrollView, FlatList } from 'react-nativ
 import { Header, Icon,ListItem, Avatar,Input,Button  } from 'react-native-elements';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import Recipes from './Recipes';
+import RecipeListScreen from './RecipeListScreen';
 import styles from '../styles/Style';
 
 
@@ -56,7 +56,7 @@ const HomeScreen = (props) => {
             />
             <View><Button buttonStyle={styles.button}
                 title="Go to Recipes"
-                onPress={() => props.navigation.navigate('Recipes')}
+                onPress={() => props.navigation.navigate('RecipeListScreen', { itemId: 1 })}
             /></View>
               <View style={styles.formStyle}>
         <Input   placeholder='Country name'
@@ -93,7 +93,7 @@ function HomeStackScreen() {
     return (
         <HomeStack.Navigator>
             <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-            <HomeStack.Screen name="Recipes" component={Recipes} options={{ headerShown: false }} />
+            <HomeStack.Screen name="RecipeListScreen" component={RecipeListScreen} options={{ headerShown: false }} />
         </HomeStack.Navigator>
     );
 }

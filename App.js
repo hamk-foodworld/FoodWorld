@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeStackScreen from './screens/HomeScreen';
 import ShoppingList from './screens/ShoppingList';
-import Favorites from './screens/Favorites';
+import FavoriteScreen from './screens/FavoriteScreen';
 import { Icon } from 'react-native-elements'
 
 
@@ -36,7 +36,7 @@ export default function App() {
             } else if (route.name === 'ShoppingList') {
               iconName = focused ? 'list-alt' : 'list-alt';
             }
-            else if (route.name === 'Favorites') {
+            else if (route.name === 'FavoriteScreen') {
               iconName = focused ? 'heart' : 'heart-o';
 
             }
@@ -52,7 +52,7 @@ export default function App() {
       >
         <Tab.Screen name="Home" component={HomeStackScreen} />
         <Tab.Screen name="ShoppingList" component={ShoppingList} />
-        <Tab.Screen name="Favorites" component={Favorites} />
+        <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
