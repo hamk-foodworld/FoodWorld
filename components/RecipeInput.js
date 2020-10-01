@@ -4,6 +4,7 @@ import { Input, CheckBox, ListItem, Button } from 'react-native-elements';
 import IngredientInput from './IngredientInput';
 
 const RecipeInput = (props) => {
+    console.log('country id by recipe input: ' + props.countryId);
 
     const [ingredientList, addIngredient] = useState([]);
     const [isVisible, setVisibility] = useState(false);

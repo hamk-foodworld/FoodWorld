@@ -14,9 +14,11 @@ const [ingredients, setingredients] = useState([]);
 const [isLoading, setLoading] = useState(true);
 
     async function fetchData() {
+        const recipeId = props.route.params.params.recipeId;
+      
         let res = null;
         try {
-          res = await fetch("https://able-groove-288106.appspot.com/rest/foodservice/getRecipe/1");
+          res = await fetch(`https://able-groove-288106.appspot.com/rest/foodservice/getRecipe/${recipeId}`);
         }
         catch (error) {
           setErrors(true);
@@ -24,12 +26,12 @@ const [isLoading, setLoading] = useState(true);
     
         try {
           const responseData = await res.json();
-          console.log(responseData);
+          //console.log(responseData);
           setRecepie(responseData);   
             setingredients(responseData.ingredients)
          
-          console.log("test")
-          console.log()
+          //console.log("test")
+          //console.log()
           
         }
         catch (err) {

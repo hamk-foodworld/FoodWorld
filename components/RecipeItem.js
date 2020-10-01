@@ -12,6 +12,8 @@ const RecipeItem = (props) => {
 
     const nextPageHandler = () => {
         console.log(`navigating to following recipe id: ${props.id}`);
+        
+        props.navigation.navigate('RecipeScreen', { screen: 'RecipeScreen', params: { recipeId: props.id }});
     }
 
     const favoriteHandler = () => {

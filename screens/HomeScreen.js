@@ -65,8 +65,9 @@ const HomeScreen = (props) => {
       <FlatList      
         data={country.filter(country => String(String(country.sName).toLowerCase()).startsWith(filter))}     
         renderItem={({item})=>(
-          <TouchableOpacity  onPress={() => props.navigation.navigate('RecipeListScreen', { itemId: 1 })}>
-          <ListItem key={item.iCountryID} bottomDivider>
+          <TouchableOpacity  onPress={() =>
+            props.navigation.navigate('RecipeListScreen', { screen: 'RecipeListScreen', params: { countryId: item.iCountryID }})}>
+          <ListItem key={item.iCountryID.toString()} bottomDivider>
             <Avatar source={{uri: item.sFlag}} />
             <ListItem.Content>
               <ListItem.Title>{item.sName}</ListItem.Title>              
@@ -75,7 +76,7 @@ const HomeScreen = (props) => {
           </ListItem>
           </TouchableOpacity>
         )}
-        keyExtractor={(item)=>item.iCountryID}
+        keyExtractor={(item)=>item.iCountryID.toString()}
       />
       </ScrollView>
         </View>

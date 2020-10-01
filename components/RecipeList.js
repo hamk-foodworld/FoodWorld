@@ -8,7 +8,9 @@ const RecipeList = (props) => {
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
+
         if (isLoading) {
+            console.log('country id: ' + props.countryId);
             setLoading(false);
             fetchRecipes();
         }
@@ -27,6 +29,7 @@ const RecipeList = (props) => {
                 data={recipeList}
                 renderItem={itemData =>
                     <RecipeItem
+                        navigation={props.navigation}
                         id={itemData.item.iRecipeID}
                         title={itemData.item.sName}
                         rating={itemData.item.iRating}

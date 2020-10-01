@@ -13,6 +13,7 @@ import RecipeInput from '../components/RecipeInput'
 
 
 const RecipeInputScreen = (props) => {
+  console.log(props.route.params.countryId);
 
   return (
     <View>
@@ -30,7 +31,7 @@ const RecipeInputScreen = (props) => {
 
       />
       <View>
-          <RecipeInput />
+          <RecipeInput countryId={props.route.params.countryId} />
       </View>
       
     </View>

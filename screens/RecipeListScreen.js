@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
 import { Header, Icon, Button } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -14,10 +14,6 @@ import RecipeInputScreen from './RecipeInputScreen';
 
 const RecipeListScreen = (props) => {
 
-  useEffect(() => {
-    //console.log(props.route.params.itemId);
-  });
-
   return (
     <View>
       <Header
@@ -28,18 +24,14 @@ const RecipeListScreen = (props) => {
           onPress={() => props.navigation.goBack()}
         />}
         centerComponent={{ text: 'Recipes', style: styles.titletext }}
-        rightComponent={<Icon name="plus" type="font-awesome" color="white" onPress={() => props.navigation.navigate('RecipeInputScreen')} />}
+        rightComponent={<Icon name="plus" type="font-awesome" color="white" onPress={() => props.navigation.navigate('RecipeInputScreen', { screen: 'RecipeInputScreen', params: { countryId: props.route.params.countryId }})} />}
         containerStyle={{
           backgroundColor: 'darkred',
         }}
 
       />
       <View>
-        <Button buttonStyle={styles.button}
-          title="Go to one Recipe"
-          onPress={() => props.navigation.navigate('RecipeScreen')}
-        />
-        <RecipeList />
+        <RecipeList countryId={props.route.params.countryId} navigation={props.navigation}/>
       </View>
 
     </View>
