@@ -140,10 +140,10 @@ const ShoppingList = (props) => {
           renderItem={itemData => (
             <View style={styles.listItemStyle}>
               
-              {itemData.item.checked === 1 ? <CheckBox title={<Text>{itemData.item.name} {itemData.item.amount} {itemData.item.unit}</Text>} 
+              {itemData.item.checked === 1 ? <CheckBox title={<Text>{itemData.item.amount} {itemData.item.unit} {itemData.item.name}</Text>} 
               onPress={()=> updateneg(itemData.item.id)} onLongPress={()=> deleteItem(itemData.item.id)} checked={true}> </CheckBox>
               
-              : <CheckBox title={<Text>{itemData.item.name} {itemData.item.amount} {itemData.item.unit}</Text>} 
+              : <CheckBox title={<Text>{itemData.item.amount} {itemData.item.unit} {itemData.item.name}</Text>} 
               onPress={()=> updatepos(itemData.item.id)} onLongPress={()=> deleteItem(itemData.item.id)} checked={false}> </CheckBox>}
               
               

@@ -46,13 +46,32 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
- 
+
 
   padding: {
 
-    maxHeight: '50%',
-    marginBottom: 20,
+    maxHeight: '73%',
+
+  },
+  formStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: "center"
+  },
+  buttonView: {
+    width: '60%',
+    flexDirection: 'row',
+    justifyContent: "space-around",
+  },
+  fullScreen: {
+    width: '100%'
+  },
+  button2: {
+    width: '40%',
   }
+
+
 });
 
 export default styles;
