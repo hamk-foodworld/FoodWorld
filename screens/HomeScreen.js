@@ -6,6 +6,7 @@ import { Header, Icon,ListItem, Avatar,Input,Button  } from 'react-native-elemen
 import { createStackNavigator } from '@react-navigation/stack';
 import RecipeListScreen from './RecipeListScreen';
 import styles from '../styles/Style';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const HomeScreen = (props) => {
@@ -54,21 +55,17 @@ const HomeScreen = (props) => {
                     backgroundColor: 'darkred',
                 }}
             />
-            <View><Button buttonStyle={styles.button}
-                title="Go to Recipes"
-                onPress={() => props.navigation.navigate('RecipeListScreen', { itemId: 1 })}
-            /></View>
-              <View style={styles.formStyle}>
+              
         <Input   placeholder='Country name'
             leftIcon={{ type: 'font-awesome', name: 'search' }}
             onChangeText={searchContacts}
            />  
-      </View>
+      
       <ScrollView>
       <FlatList      
-        data={country.filter(country => String(String(country.sName).toLowerCase()).startsWith(filter))} 
-        
+        data={country.filter(country => String(String(country.sName).toLowerCase()).startsWith(filter))}     
         renderItem={({item})=>(
+          <TouchableOpacity  onPress={() => props.navigation.navigate('RecipeListScreen', { itemId: 1 })}>
           <ListItem key={item.iCountryID} bottomDivider>
             <Avatar source={{uri: item.sFlag}} />
             <ListItem.Content>
@@ -76,6 +73,7 @@ const HomeScreen = (props) => {
               {/* <ListItem.Subtitle>{itemData.item.fav}</ListItem.Subtitle> */}
             </ListItem.Content>
           </ListItem>
+          </TouchableOpacity>
         )}
         keyExtractor={(item)=>item.iCountryID}
       />
