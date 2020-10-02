@@ -71,7 +71,7 @@ const HomeScreen = (props) => {
             <Avatar source={{uri: item.sFlag}} />
             <ListItem.Content>
               <ListItem.Title>{item.sName}</ListItem.Title>              
-              {/* <ListItem.Subtitle>{itemData.item.fav}</ListItem.Subtitle> */}
+              {/* <ListItem.Subtitle>{itemData.item.fav} </ListItem.Subtitle> */}
             </ListItem.Content>
           </ListItem>
           </TouchableOpacity>
