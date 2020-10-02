@@ -58,7 +58,7 @@ const RecipeScreen = (props) => {
   const addToShopList = () => {
     console.log(recepie.ingredients);
     recepie.ingredients.forEach(element => {
-      const dbResult = addItem(element.sName, element.iAmount, element.sUnit);
+      const dbResult = addItem(element.sName, element.iAmount, element.sAcronym);
       
     });
    
@@ -68,8 +68,8 @@ const RecipeScreen = (props) => {
 
   return (
 
-    <View>
-      <ScrollView>
+    <View style={{maxHeight: "100%"}}>
+      
         <Header
           leftComponent={<Icon
             name="back"
@@ -83,6 +83,7 @@ const RecipeScreen = (props) => {
 
           }}
         />
+        <ScrollView>
         <View>
 
           <Card>
@@ -110,7 +111,7 @@ const RecipeScreen = (props) => {
               data={recepie.ingredients}
               renderItem={itemData =>
                 <View>
-                  <Text>-{itemData.item.iAmount} {itemData.item.sUnit} {itemData.item.sName}</Text>
+                  <Text>-{itemData.item.iAmount} {itemData.item.sAcronym} {itemData.item.sName}</Text>
                 </View>
               }
               keyExtractor={(item) => item.iID.toString()}
@@ -122,7 +123,7 @@ const RecipeScreen = (props) => {
             </Text>
           </Card>
         </View>
-      </ScrollView>
+        </ScrollView>
     </View>
 
 
