@@ -6,6 +6,7 @@ import styles from '../styles/Style';
 
 
 
+
 const RecipeScreen = (props) => {
     const [hasError, setErrors] = useState(false);
 const [someError, setSomeErrors] = useState('');
@@ -52,8 +53,8 @@ const [isLoading, setLoading] = useState(true);
 
     return (
         
-        <View>
-            <ScrollView>
+        <View style={{maxHeight: '100%'}}>
+            
             <Header
                 leftComponent={<Icon
                     name="back"
@@ -67,6 +68,7 @@ const [isLoading, setLoading] = useState(true);
 
                 }}
             />
+            <ScrollView>
             <View>
                 
             <Card>
@@ -80,7 +82,7 @@ const [isLoading, setLoading] = useState(true);
        </View>
        <View style={[{flex:1,flexDirection:'row',justifyContent:'space-evenly',marginRight:-50}]}>
        <Icon name="shopping-cart" type="font-awesome-5"></Icon>
-       <Icon name="heart" type="font-awesome-5"></Icon>
+       <Icon name="heart" type="font-awesome-5" ></Icon>
        </View>
        </View>
      <Text style={{fontWeight: "bold"}}>Description:</Text>
@@ -94,7 +96,7 @@ const [isLoading, setLoading] = useState(true);
         data={recepie.ingredients}         
         renderItem={itemData=>
             <View>
-                <Text>-{itemData.item.iAmount} {itemData.item.sUnit} {itemData.item.sName}</Text>
+                <Text>-{itemData.item.iAmount} {itemData.item.sAcronym} {itemData.item.sName}</Text>
             </View>      
         }
         keyExtractor={(item)=>item.iID.toString()}
