@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect} from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, FlatList } from 'react-native';
-import { Header, Icon,ListItem, Avatar,Input,Button  } from 'react-native-elements';
+import { Header, Icon,ListItem, Avatar,Input,Button, CheckBox  } from 'react-native-elements';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import RecipeListScreen from './RecipeListScreen';
@@ -16,6 +16,7 @@ const HomeScreen = (props) => {
     const [country, setCountry] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
+    
    async function fetchData() {
     let res = null;
     try {
@@ -60,7 +61,6 @@ const HomeScreen = (props) => {
             leftIcon={{ type: 'font-awesome', name: 'search' }}
             onChangeText={searchContacts}
            />  
-     
       <ScrollView >
       <FlatList      
         data={country.filter(country => String(String(country.sName).toLowerCase()).startsWith(filter))}     
