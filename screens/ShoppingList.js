@@ -16,7 +16,8 @@ init()
   });
 
 const ShoppingList = (props) => {
-
+  
+  
   const [isLoaded, setIsLoaded] = useState(false);
   const [isVisible, setVisibility] = useState(false);
   const [itemList, setItemList] = useState([]);
@@ -25,19 +26,30 @@ const ShoppingList = (props) => {
   const [newItemUnit, setNewItemUnit] = useState('');
 
   if (isLoaded !== true) {
+
     readAllItems();
     setIsLoaded(true);
 
   }
 
+  
 
-  const addItemToList = () => {
+  if(props.route.params.params !== undefined && props.route.params.params.recipe == "ok"){
+    readAllItems();
+    
+    props.route.params.params.recipe = "no";
+    console.log(props.route.params.params.recipe);
+  }
+  
+  const addItemToList=()=>{
+
     readAllItems();
     setVisibility(false);
   }
   const cancelItemToList = () => {
     setVisibility(false);
   }
+
 
 
 
@@ -109,13 +121,16 @@ const ShoppingList = (props) => {
       console.log(err);
     }
     finally {
-      console.log("test");
+      
     }
   }
+
+  
 
   return (
     <View>
       <Header
+        
         centerComponent={{ text: 'ShoppingList', style: styles.titletext }}
         containerStyle={{
           backgroundColor: 'darkred',

@@ -70,7 +70,7 @@ const ListItemInput = (props) => {
                 }}
             />
 
-            <View style={styles.formStyle}>
+            <View style={styles.formStyle2}>
                 <Input label="Name" onChangeText={nameInputHandler} />
                 <Input label="Amount" onChangeText={amountInputHandler} />
 
