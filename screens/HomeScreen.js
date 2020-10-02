@@ -27,7 +27,6 @@ const HomeScreen = (props) => {
 
     try {
       const responseData = await res.json();
-      console.log(responseData);
       setCountry(responseData);
     }
     catch (err) {
