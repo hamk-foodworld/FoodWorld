@@ -46,8 +46,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-
-
+  screenLayout: {
+    maxHeight: '100%' 
+  },
   padding: {
 
     maxHeight: '73%',

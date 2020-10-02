@@ -13,6 +13,7 @@ init()
     console.log('Database IS NOT initialized! ' + err);
   });
 
+
 const RecipeScreen = (props) => {
   const [hasError, setErrors] = useState(false);
   const [someError, setSomeErrors] = useState('');
@@ -67,10 +68,6 @@ const RecipeScreen = (props) => {
     });
    
     props.navigation.navigate('ShoppingList', { screen: 'ShoppingList', params: { recipe: "ok" }});
-    
-
-
-
   }
 
 
@@ -129,7 +126,6 @@ const RecipeScreen = (props) => {
               {recepie.sPreparation}
             </Text>
           </Card>
-
         </View>
       </ScrollView>
     </View>

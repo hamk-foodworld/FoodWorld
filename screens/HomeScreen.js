@@ -27,7 +27,6 @@ const HomeScreen = (props) => {
 
     try {
       const responseData = await res.json();
-      console.log(responseData);
       setCountry(responseData);
     }
     catch (err) {
@@ -47,7 +46,7 @@ const HomeScreen = (props) => {
     changefilter(String(enteredText).toLowerCase());
   };
     return (
-        <View>
+        <View style={{maxHeight: '100%'}}>
             <Header
                 centerComponent={{ text: 'Countries', style: styles.titletext }}
                 rightComponent={<Icon name="filter" type="font-awesome" color="white" onPress={() => props.navigation.goBack()}/>}
@@ -60,8 +59,8 @@ const HomeScreen = (props) => {
             leftIcon={{ type: 'font-awesome', name: 'search' }}
             onChangeText={searchContacts}
            />  
-      
-      <ScrollView>
+     
+      <ScrollView >
       <FlatList      
         data={country.filter(country => String(String(country.sName).toLowerCase()).startsWith(filter))}     
         renderItem={({item})=>(
@@ -79,7 +78,8 @@ const HomeScreen = (props) => {
         keyExtractor={(item)=>item.iCountryID.toString()}
       />
       </ScrollView>
-        </View>
+      </View>
+        
         
     );
 }

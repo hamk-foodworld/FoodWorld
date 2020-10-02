@@ -7,6 +7,7 @@ import styles from '../styles/Style';
 import RecipeScreen from './RecipeScreen';
 import RecipeList from '../components/RecipeList'
 import RecipeInputScreen from './RecipeInputScreen';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 
@@ -15,7 +16,7 @@ import RecipeInputScreen from './RecipeInputScreen';
 const RecipeListScreen = (props) => {
 
   return (
-    <View>
+    <View style={styles.screenLayout}>
       <Header
         leftComponent={<Icon
           name="back"
@@ -24,15 +25,14 @@ const RecipeListScreen = (props) => {
           onPress={() => props.navigation.goBack()}
         />}
         centerComponent={{ text: 'Recipes', style: styles.titletext }}
-        rightComponent={<Icon name="plus" type="font-awesome" color="white" onPress={() => props.navigation.navigate('RecipeInputScreen', { screen: 'RecipeInputScreen', params: { countryId: props.route.params.countryId }})} />}
+        rightComponent={<Icon name="plus" type="font-awesome" color="white" onPress={() => props.navigation.navigate('RecipeInputScreen', { screen: 'RecipeInputScreen', params: { countryId: props.route.params.countryId } })} />}
         containerStyle={{
           backgroundColor: 'darkred',
         }}
 
       />
-      <View>
-        <RecipeList countryId={props.route.params.countryId} navigation={props.navigation}/>
-      </View>
+      <RecipeList countryId={props.route.params.countryId} navigation={props.navigation} />
+
 
     </View>
   );

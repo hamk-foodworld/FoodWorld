@@ -47,22 +47,20 @@ const RecipeInput = (props) => {
             sDescription: description,
             iAmountPeople: amountPeople,
             sPreparation: preperation,
-            byVegetarian: vegetarian ? 1 : 0,
             byVegan: vegan ? 1 : 0,
-            byLactose: lactose ? 1 : 0,
+            byVegetarian: vegetarian ? 1 : 0,
             byGluten: gluten ? 1 : 0,
+            byLactose: lactose ? 1 : 0,
             sPic: pictureUrl,
-            ingredients: ingredientList,
-            // unitID
-            // countryID
+            iCountryID: props.countryId,
+            ingredients: ingredientList.map(i => ({ sName: i.name, iAmount: i.amount, iUnit: i.unit.id })),
         };
 
-        console.log('possible post request body: ' + newRecipe);
-        console.log(newRecipe);
+        addData(newRecipe);
     }
 
     async function addData(reqBody) {
-        const response = await fetch("https://able-groove-288106.appspot.com/rest/foodservice",
+        const response = await fetch("https://able-groove-288106.appspot.com/rest/foodservice/addRecipe",
             {
                 method: 'POST',
                 headers: {
@@ -85,7 +83,7 @@ const RecipeInput = (props) => {
     }
 
     return (
-        <ScrollView>
+        <View>
             <Input label="Name" onChangeText={nameInputHandler} />
             <Input label="Description" onChangeText={descriptionInputHandler} />
             <Input label="Preparation time" onChangeText={preperationTimeInputHandler} />
@@ -132,7 +130,7 @@ const RecipeInput = (props) => {
                 title="Save recipe"
                 onPress={addRecipe}
             />
-        </ScrollView>
+        </View>
     );
 }
 
