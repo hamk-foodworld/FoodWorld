@@ -41,7 +41,6 @@ const RecipeItem = (props) => {
 
     return (
         <View>
-
             <TouchableWithoutFeedback onPress={nextPageHandler}>
                 <Card>
                     <Card.Title style={styles.title}>{props.title}</Card.Title>

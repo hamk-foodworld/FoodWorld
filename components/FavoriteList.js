@@ -5,9 +5,13 @@ import RecipeItem from './RecipeItem';
 const FavoriteList = (props) => {
 
     const [recipeList, addRecipe] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        fetchFavoriteRecipes();
+        if (isLoading) {
+            setIsLoaded(true);
+            fetchFavoriteRecipes();
+        }
     })
 
     async function fetchFavoriteRecipes() {

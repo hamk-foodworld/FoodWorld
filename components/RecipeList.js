@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, Button } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import RecipeItem from './RecipeItem';
 
 const RecipeList = (props) => {
