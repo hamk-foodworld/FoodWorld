@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TextInput, FlatList, ScrollView, SafeAreaView } from 'react-native';
-import { init, addItem, fetchList, updateListpos, updateListneg, deleteFromList, deleteList } from '../sqlconnection/dbShop';
+import { addItem, fetchList, updateListpos, updateListneg, deleteFromList, deleteList } from '../sqlconnection/dbShop';
 
 
 import { Header, ChekBox, CheckBox, Icon, Button } from 'react-native-elements';
@@ -8,12 +8,7 @@ import styles from '../styles/Style';
 import ListItemInput from '../components/ListItemInput'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-init()
-  .then(() => {
-    console.log('Database creation succeeded!');
-  }).catch((err) => {
-    console.log('Database IS NOT initialized! ' + err);
-  });
+
 
 const ShoppingList = (props) => {
   

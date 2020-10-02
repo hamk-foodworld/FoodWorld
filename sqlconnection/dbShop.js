@@ -4,7 +4,7 @@ import * as SQLite from 'expo-sqlite';
 const db=SQLite.openDatabase('shoplist.db');
 
 //method returns a Promise - in the calling side .then(...).then(...)....catch(...) can be used
-export const init=()=>{
+export const init2=()=>{
     const promise=new Promise((resolve, reject)=>{
         db.transaction((tx)=>{
             //By default, primary key is auto_incremented - we do not add anything to that column
