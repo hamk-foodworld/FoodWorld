@@ -3,15 +3,10 @@ import { View, Text, Button, Image, StyleSheet, FlatList } from 'react-native';
 import { Header, Icon, ListItem, Card } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../styles/Style';
-import { init, addItem } from '../sqlconnection/dbShop';
+import { addItem } from '../sqlconnection/dbShop';
 import readAllItems from './ShoppingList';
 
-init()
-  .then(() => {
-    console.log('Database creation succeeded!');
-  }).catch((err) => {
-    console.log('Database IS NOT initialized! ' + err);
-  });
+
 
 
 const RecipeScreen = (props) => {

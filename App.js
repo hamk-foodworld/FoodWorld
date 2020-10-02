@@ -10,7 +10,22 @@ import { Icon } from 'react-native-elements'
 import RecipeInput from './components/RecipeInput';
 
 
+import { init } from './sqlconnection/dbFavorite';
+import { init2 } from './sqlconnection/dbShop';
 
+init()
+  .then(() => {
+    console.log('Database creation succeeded!');
+  }).catch((err) => {
+    console.log('Database IS NOT initialized! ' + err);
+  });
+
+init2()
+  .then(() => {
+    console.log('Database creation succeeded!');
+  }).catch((err) => {
+    console.log('Database IS NOT initialized! ' + err);
+  });
 
 
 
@@ -52,7 +67,7 @@ export default function App() {
         }}
       >
         <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="ShoppingList" component={ShoppingList} initialParams="t" id="5"/>
+        <Tab.Screen name="ShoppingList" component={ShoppingList} initialParams="t" id="5" />
         <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} />
       </Tab.Navigator>
     </NavigationContainer>
