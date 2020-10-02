@@ -52,7 +52,7 @@ export default function App() {
         }}
       >
         <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="ShoppingList" component={ShoppingList} />
+        <Tab.Screen name="ShoppingList" component={ShoppingList} initialParams="t" id="5"/>
         <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} />
       </Tab.Navigator>
     </NavigationContainer>

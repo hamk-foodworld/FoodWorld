@@ -16,20 +16,28 @@ init()
   });
 
 const ShoppingList = (props) => {
-
+  
+  
   const [isLoaded, setIsLoaded] = useState(false);
   const [isVisible, setVisibility]=useState(false);
   const [itemList, setItemList] = useState([]);
   const [newItemName, setNewItemName] = useState('');
   const [newItemAmount, setNewItemAmount] = useState('');
   const [newItemUnit, setNewItemUnit] = useState('');
-
+ 
   if(isLoaded !==true){
     readAllItems();
     setIsLoaded(true);
 
   }
   
+
+  if(props.route.params.params !== undefined && props.route.params.params.recipe == "ok"){
+    readAllItems();
+    
+    props.route.params.params.recipe = "no";
+    console.log(props.route.params.params.recipe);
+  }
   
   const addItemToList=()=>{
     readAllItems();
@@ -39,7 +47,8 @@ const ShoppingList = (props) => {
     setVisibility(false);
   }
 
-  
+ 
+
 
   //dtabase operations
   
@@ -115,13 +124,16 @@ const ShoppingList = (props) => {
       console.log(err);
     }
     finally {
-      console.log("test");
+      
     }
   }
+
+  
 
   return (
     <View>
       <Header
+        
         centerComponent={{ text: 'ShoppingList', style: styles.titletext }}
         containerStyle={{
           backgroundColor: 'darkred',

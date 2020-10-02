@@ -46,6 +46,9 @@ export const addItem=(name, amount, unit)=>{
     return promise;
 };
 
+
+
+
 export const fetchList=()=>{
     const promise=new Promise((resolve, reject)=>{
         db.transaction((tx)=>{

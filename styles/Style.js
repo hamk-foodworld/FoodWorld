@@ -59,6 +59,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: "center"
   },
+
+  formStyle2: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: "center",
+    paddingTop: 20,
+    
+  },
   buttonView: {
     width: '60%',
     flexDirection: 'row',
