@@ -46,6 +46,7 @@ const FavoriteList = (props) => {
             data={recipeList}
             renderItem={itemData =>
                 <RecipeItem
+                    navigation={props.navigation}
                     id={itemData.item.iRecipeID}
                     title={itemData.item.sName}
                     rating={itemData.item.iRating}
