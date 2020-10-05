@@ -50,6 +50,7 @@ const RecipeList = (props) => {
             data={recipeList}
             renderItem={itemData =>
                 <RecipeItem
+                    onAddFavorite={() => console.log('adding favorite event')}
                     navigation={props.navigation}
                     id={itemData.item.iRecipeID}
                     title={itemData.item.sName}

@@ -27,6 +27,8 @@ const RecipeItem = (props) => {
         }
         setFavorite(!favorite);
         updateHeart(reqBody);
+        
+        props.onAddFavorite();
     }
 
     async function updateHeart(reqBody) {
@@ -38,14 +40,11 @@ const RecipeItem = (props) => {
                 },
                 body: JSON.stringify(reqBody)
             });
-
-        const responseData = await response.json();
     }
 
     async function saveFavoriteLocale() {
         try {
             const dbResult = await addFavorite(props.id);
-            console.log(dbResult);
         }
         catch (err) {
             console.log(err);
