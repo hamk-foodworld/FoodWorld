@@ -111,6 +111,9 @@ const ShoppingList = (props) => {
     try {
       const dbResult = await fetchList(newItemName, newItemAmount, newItemUnit);
       setItemList(dbResult.rows._array);
+      
+      console.log(dbResult.rows._array);
+      console.log(dbResult.rows._array.length);
     }
     catch (err) {
       console.log(err);

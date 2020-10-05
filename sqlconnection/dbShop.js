@@ -119,6 +119,24 @@ export const deleteFromList=(id)=>{
     });
     return promise;
 };
+
+export const deleteFromListByName=(name)=>{
+    const promise=new Promise((resolve, reject)=>{
+        db.transaction((tx)=>{
+            //Here we select all from the table fish
+            tx.executeSql('DELETE FROM shoplist WHERE name="'+name+'";',
+            [],
+            (tx, result)=>{
+                resolve(result);
+            },
+            (tx,err)=>{
+                reject(err);
+            }
+            );
+        });
+    });
+    return promise;
+};
 export const deleteList=()=>{
     const promise=new Promise((resolve, reject)=>{
         db.transaction((tx)=>{

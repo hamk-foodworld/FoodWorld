@@ -3,8 +3,9 @@ import { View, Text, Button, Image, StyleSheet, FlatList } from 'react-native';
 import { Header, Icon, ListItem, Card } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../styles/Style';
-import { addItem } from '../sqlconnection/dbShop';
+import { addItem, fetchList, deleteFromListByName } from '../sqlconnection/dbShop';
 import readAllItems from './ShoppingList';
+
 
 
 
@@ -15,6 +16,11 @@ const RecipeScreen = (props) => {
   const [recepie, setRecepie] = useState({});
   const [ingredients, setingredients] = useState([]);
   const [isLoading, setLoading] = useState(true);
+
+  //const [localdb, setLocaldb] = useState([]);
+  const [newItemName, setNewItemName] = useState('');
+  const [newItemAmount, setNewItemAmount] = useState('');
+  const [newItemUnit, setNewItemUnit] = useState('');
 
   async function fetchData() {
     const recipeId = props.route.params.params.recipeId;
@@ -55,14 +61,100 @@ const RecipeScreen = (props) => {
   });
 
 
-  const addToShopList = () => {
-    console.log(recepie.ingredients);
+
+  async function addToShopList() {
+
+
+    try {
+      const dbResult = await fetchList(newItemName, newItemAmount, newItemUnit);
+      //setLocaldb(dbResult.rows._array);
+      console.log("dbresult " + dbResult.rows._array.length);
+      
+      compare(dbResult.rows._array);
+      
+    }
+    catch (err) {
+      console.log(err);
+    }
+    finally {
+      
+    }
+  }
+  async function compare(localdb) {
+   
+   let list = [];
+    console.log("lolcaldb length" + localdb.length);
+   if(localdb.length > 0 ){
+    for (let j = 0; j < recepie.ingredients.length; j++) {
+  
+     let duplicate = false;
+     let value1 = 0;
+     let unit = "";
+     let name = "";
+     let dupevalue1 = 0;
+     let dupevalue2 = 0;
+     let dupeunit = "";
+     let dupename = "";
+     
+     
+      for (let i = 0; i < localdb.length; i++){
+        
+         if (recepie.ingredients[j].sName == localdb[i].name && recepie.ingredients[j].sAcronym == localdb[i].unit){
+           duplicate = true
+           dupevalue1 = recepie.ingredients[j].iAmount;
+           dupevalue2 = localdb[i].amount;
+           dupename= localdb[i].name;
+           dupeunit = localdb[i].unit;
+         }
+         else{
+           
+           value1 = recepie.ingredients[j].iAmount;
+           name= recepie.ingredients[j].sName;
+           unit = recepie.ingredients[j].sAcronym;
+           
+         }
+         
+      }
+      
+      if (duplicate !== true){
+         list.push({"name" : name, "amount" : value1, "unit" : unit})
+ 
+      }
+      else{
+        let dupeamount = dupevalue2 + dupevalue1;
+        const dbResult = await deleteFromListByName(dupename);
+       list.push({"name" : dupename, "amount" : dupeamount, "unit" : dupeunit})
+       
+      }
+      
+    }
+ 
+    
+    
+     list.forEach(element => {
+     addItem(element.name, element.amount, element.unit);
+       
+     });
+    
+     props.navigation.navigate('ShoppingList', { screen: 'ShoppingList', params: { recipe: "ok" }}); 
+   }
+   else{
     recepie.ingredients.forEach(element => {
       const dbResult = addItem(element.sName, element.iAmount, element.sAcronym);
+        
+      });
+     
+      props.navigation.navigate('ShoppingList', { screen: 'ShoppingList', params: { recipe: "ok" }});
+   }
+   
+
+    /* console.log(recepie.ingredients);
+    recepie.ingredients.forEach(element => {
+    const dbResult = addItem(element.sName, element.iAmount, element.sAcronym);
       
     });
    
-    props.navigation.navigate('ShoppingList', { screen: 'ShoppingList', params: { recipe: "ok" }});
+    props.navigation.navigate('ShoppingList', { screen: 'ShoppingList', params: { recipe: "ok" }}); */
   }
 
 
