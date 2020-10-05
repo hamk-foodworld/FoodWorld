@@ -6,14 +6,7 @@ import FavoriteList from '../components/FavoriteList';
 import RecipeScreen from './RecipeScreen';
 import RecipeInputScreen from './RecipeInputScreen';
 import { createStackNavigator } from '@react-navigation/stack';
-import {init} from '../sqlconnection/dbFavorite';
 
-init()
-  .then(() => {
-    console.log('Database creation succeeded!');
-  }).catch((err) => {
-    console.log('Database IS NOT initialized! ' + err);
-  });
 
 const FavoriteScreen = (props) => {
   return (
