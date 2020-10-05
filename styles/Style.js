@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   padding: {
 
-    maxHeight: '73%',
+    maxHeight: '81%',
 
   },
   formStyle: {

@@ -133,6 +133,7 @@ const ShoppingList = (props) => {
         containerStyle={{
           backgroundColor: 'darkred',
         }}
+        rightComponent={<Icon name="plus" type="font-awesome" color="white" onPress={() => setVisibility(true)} />}
       />
       <View style={styles.padding}>
         <FlatList
@@ -149,7 +150,7 @@ const ShoppingList = (props) => {
         />
       </View>
       <View>
-        <Button title="Add new item" buttonStyle={styles.button} onPress={() => setVisibility(true)} ></Button>
+        
         <ListItemInput visibility={isVisible} onAddItem={addItemToList} onCancelItem={cancelItemToList} />
         <View><Icon name="delete" type="material" size={40} onPress={deleteAll} /></View>
       </View>
