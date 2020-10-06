@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import styles from '../styles/Style';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { Header, Icon, Input, CheckBox, ListItem, Button } from 'react-native-elements';
 import IngredientInput from '../components/IngredientInput';
 
@@ -28,16 +28,16 @@ const RecipeInputScreen = (props) => {
     setDescription(enteredText);
   }
   const preperationTimeInputHandler = (enteredText) => {
-    setDescription(enteredText);
+    setPreperationTime(enteredText);
   }
   const preperationInputHandler = (enteredText) => {
-    setDescription(enteredText);
+    setPreperation(enteredText);
   }
   const amountPeopleInputHandler = (enteredText) => {
-    setDescription(enteredText);
+    setAmountPeople(enteredText);
   }
   const pictureUrlInputHandler = (enteredText) => {
-    setDescription(enteredText);
+    setPictureUrl(enteredText);
   }
 
   const addRecipe = () => {
@@ -68,6 +68,7 @@ const RecipeInputScreen = (props) => {
         body: JSON.stringify(reqBody)
       });
     const responseData = await response.json();
+    props.navigation.navigate('RecipeListScreen', { screen: 'RecipeListScreen', params: { countryId: props.route.params.countryId } });
   }
 
   const addIngredientToList = (name, amount, unit) => {
@@ -94,7 +95,7 @@ const RecipeInputScreen = (props) => {
         }}
 
       />
-      <View>
+      <ScrollView>
         <Input label="Name" onChangeText={nameInputHandler} />
         <Input label="Description" onChangeText={descriptionInputHandler} />
         <Input label="Preparation time" onChangeText={preperationTimeInputHandler} />
@@ -141,7 +142,7 @@ const RecipeInputScreen = (props) => {
           title="Save recipe"
           onPress={addRecipe}
         />
-      </View>
+      </ScrollView>
     </View>
   );
 }
