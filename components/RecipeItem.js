@@ -1,32 +1,28 @@
 import React, { useState } from 'react';
 import { addFavorite, deleteFavorite as deleteFavoriteLocale } from '../sqlconnection/dbFavorite';
-
-
-import { View, Text, TouchableWithoutFeedback, StyleSheet, Image, Button } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { Card, Icon } from 'react-native-elements'
 import styles from '../styles/Style'
-
 
 const RecipeItem = (props) => {
     const [favorite, setFavorite] = useState(props.favorite);
 
     const nextPageHandler = () => {
-        console.log(`navigating to following recipe id: ${props.id}`);
         props.navigation.navigate('RecipeScreen', { screen: 'RecipeScreen', params: { recipeId: props.id } });
     }
 
     const favoriteHandler = () => {
         let reqBody = { iRecipeID: props.id, bState: false };
         if (favorite) {
-            console.log(`delete favorite recipe id: ${props.id}`)
             deleteFavoriteLocale(props.id);
         } else {
-            console.log(`saving favorite recipe id: ${props.id}`);
             saveFavoriteLocale();
             reqBody.bState = true;
         }
         setFavorite(!favorite);
         updateHeart(reqBody);
+
+        props.onAddFavorite();
     }
 
     async function updateHeart(reqBody) {
@@ -38,14 +34,11 @@ const RecipeItem = (props) => {
                 },
                 body: JSON.stringify(reqBody)
             });
-
-        const responseData = await response.json();
     }
 
     async function saveFavoriteLocale() {
         try {
             const dbResult = await addFavorite(props.id);
-            console.log(dbResult);
         }
         catch (err) {
             console.log(err);
@@ -109,7 +102,6 @@ const RecipeItem = (props) => {
                 </View>
             </Card>
         </TouchableWithoutFeedback>
-
     );
 }
 

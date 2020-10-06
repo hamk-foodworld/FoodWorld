@@ -1,18 +1,13 @@
 import { StyleSheet } from 'react-native';
 
-
 let purple = '#9919d4';
 let red = 'red';
 let darkred = 'darkred';
 let white = "white";
 let fontFamilyTitle = "sans-serif";
 let fontfamilyText = "sans-serif";
-const styles = StyleSheet.create({
 
-  /* icon: {
-    width: 24,
-    height: 24,
-  }, */
+const styles = StyleSheet.create({
 
   titletext: {
     fontSize: 35,
@@ -20,7 +15,6 @@ const styles = StyleSheet.create({
     color: white,
     padding: 10,
     fontWeight: "bold",
-
   },
   title: {
     fontSize: 22
@@ -35,24 +29,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold'
   },
-
   button: {
     backgroundColor: 'green',
-
   },
-
   flex: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
   screenLayout: {
-    maxHeight: '100%' 
+    maxHeight: '100%'
   },
   padding: {
-
     maxHeight: '81%',
-
   },
   formStyle: {
     flex: 1,
@@ -60,14 +49,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: "center"
   },
-
   formStyle2: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: "center",
     paddingTop: 20,
-    
   },
   buttonView: {
     width: '60%',
@@ -80,8 +67,6 @@ const styles = StyleSheet.create({
   button2: {
     width: '40%',
   }
-
-
 });
 
 export default styles;

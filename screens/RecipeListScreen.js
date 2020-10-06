@@ -1,19 +1,49 @@
-import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
-import { Header, Icon, Button } from 'react-native-elements';
+import React, { useState, useEffect } from 'react';
+import { View, FlatList } from 'react-native';
+import { Header, Icon } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { fetchAllFavorite } from '../sqlconnection/dbFavorite';
 import styles from '../styles/Style';
-import RecipeScreen from './RecipeScreen';
-import RecipeList from '../components/RecipeList'
 import RecipeInputScreen from './RecipeInputScreen';
-import { ScrollView } from 'react-native-gesture-handler';
-
-
-
-
+import RecipeScreen from './RecipeScreen';
+import RecipeItem from '../components/RecipeItem';
 
 const RecipeListScreen = (props) => {
+  const [recipeList, addRecipe] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (isLoading) {
+      setLoading(false);
+      fetchRecipes();
+    }
+  })
+
+  async function fetchRecipes() {
+    const recipes = await fetch(`https://able-groove-288106.appspot.com/rest/foodservice/getCountryRecipe/${props.route.params.countryId}`)
+      .then(parameter => parameter.json())
+    const favoritesRecipes = await fetchFavoriteRecipes();
+    const recipeIDList = favoritesRecipes.map(recipe => recipe.recipeID);
+
+    recipes.forEach(r => {
+      if (recipeIDList.includes(r.iRecipeID)) {
+        r.favorite = true;
+      } else {
+        r.favorite = false;
+      }
+    });
+    addRecipe(recipes);
+  }
+
+  async function fetchFavoriteRecipes() {
+    try {
+      const dbResult = await fetchAllFavorite();
+      return dbResult.rows._array;
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <View style={styles.screenLayout}>
@@ -31,14 +61,29 @@ const RecipeListScreen = (props) => {
         }}
 
       />
-      <RecipeList countryId={props.route.params.countryId} navigation={props.navigation} />
-
-
+      <FlatList
+        keyExtractor={item => item.iRecipeID.toString()}
+        data={recipeList}
+        renderItem={itemData =>
+          <RecipeItem
+            onAddFavorite={() => console.log('adding favorite event')}
+            navigation={props.navigation}
+            id={itemData.item.iRecipeID}
+            title={itemData.item.sName}
+            rating={itemData.item.iRating}
+            cookingTime={itemData.item.iCookingTime}
+            pic={itemData.item.sPic}
+            vegan={itemData.item.byVegan == 0 ? false : true}
+            vegetarian={itemData.item.byVegetarian == 0 ? false : true}
+            gluten={itemData.item.byGluten == 0 ? false : true}
+            lactose={itemData.item.byLactose == 0 ? false : true}
+            favorite={itemData.item.favorite}
+          />
+        }
+      />
     </View>
   );
 }
-
-
 
 const RecipesStack = createStackNavigator();
 
@@ -52,6 +97,5 @@ function RecipesStackScreen() {
     </RecipesStack.Navigator>
   );
 }
-
 
 export default RecipesStackScreen;
