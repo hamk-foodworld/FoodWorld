@@ -93,16 +93,16 @@ const ShoppingList = (props) => {
   }
 
   return (
-    <View>
+    <View style={{ maxHeight: '100%' }}>
       <Header
-
+        leftComponent={<Icon name="delete" type="material" size={30} color="white" onPress={deleteAll} />}
         centerComponent={{ text: 'ShoppingList', style: styles.titletext }}
         containerStyle={{
           backgroundColor: 'darkred',
         }}
         rightComponent={<Icon name="plus" type="font-awesome" color="white" onPress={() => setVisibility(true)} />}
       />
-      <View style={styles.padding}>
+      
         <FlatList
           keyExtractor={item => itemList.indexOf(item).toString()}
           data={itemList}
@@ -115,10 +115,10 @@ const ShoppingList = (props) => {
             </View>
           )}
         />
-      </View>
+      
       <View>
         <ListItemInput visibility={isVisible} onAddItem={addItemToList} onCancelItem={cancelItemToList} />
-        <View><Icon name="delete" type="material" size={40} onPress={deleteAll} /></View>
+        
       </View>
     </View>
   );
