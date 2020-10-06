@@ -27,7 +27,7 @@ const RecipeItem = (props) => {
         }
         setFavorite(!favorite);
         updateHeart(reqBody);
-        
+
         props.onAddFavorite();
     }
 
