@@ -7,9 +7,6 @@ import { addItem, fetchList, deleteFromListByName } from '../sqlconnection/dbSho
 import readAllItems from './ShoppingList';
 
 
-
-
-
 const RecipeScreen = (props) => {
   const [hasError, setErrors] = useState(false);
   const [someError, setSomeErrors] = useState('');
@@ -35,22 +32,13 @@ const RecipeScreen = (props) => {
 
     try {
       const responseData = await res.json();
-      //console.log(responseData);
       setRecepie(responseData);
       setingredients(responseData.ingredients);
-
-
-      //console.log("test")
-      //console.log()
-
     }
     catch (err) {
       setErrors(true);
       setSomeErrors("ERROR: " + hasError + " my error " + err);
       console.log(someError);
-    }
-    finally {
-      console.log("test")
     }
   }
   useEffect(() => {
@@ -60,33 +48,22 @@ const RecipeScreen = (props) => {
     }
   });
 
-
-
   async function addToShopList() {
-
-
     try {
       const dbResult = await fetchList(newItemName, newItemAmount, newItemUnit);
-      //setLocaldb(dbResult.rows._array);
-      console.log("dbresult " + dbResult.rows._array.length);
-
       compare(dbResult.rows._array);
-
     }
     catch (err) {
       console.log(err);
     }
-    finally {
-
-    }
   }
-  async function compare(localdb) {
 
+  async function compare(localdb) {
     let list = [];
     console.log("lolcaldb length" + localdb.length);
     if (localdb.length > 0) {
-      for (let j = 0; j < recepie.ingredients.length; j++) {
 
+      for (let j = 0; j < recepie.ingredients.length; j++) {
         let duplicate = false;
         let value1 = 0;
         let unit = "";
@@ -95,7 +72,6 @@ const RecipeScreen = (props) => {
         let dupevalue2 = 0;
         let dupeunit = "";
         let dupename = "";
-
 
         for (let i = 0; i < localdb.length; i++) {
 
@@ -107,33 +83,23 @@ const RecipeScreen = (props) => {
             dupeunit = localdb[i].unit;
           }
           else {
-
             value1 = recepie.ingredients[j].iAmount;
             name = recepie.ingredients[j].sName;
             unit = recepie.ingredients[j].sAcronym;
-
           }
-
         }
 
         if (duplicate !== true) {
           list.push({ "name": name, "amount": value1, "unit": unit })
-
-        }
-        else {
+        } else {
           let dupeamount = dupevalue2 + dupevalue1;
           const dbResult = await deleteFromListByName(dupename);
           list.push({ "name": dupename, "amount": dupeamount, "unit": dupeunit })
-
         }
-
       }
-
-
 
       list.forEach(element => {
         addItem(element.name, element.amount, element.unit);
-
       });
 
       props.navigation.navigate('ShoppingList', { screen: 'ShoppingList', params: { recipe: "ok" } });
@@ -141,27 +107,15 @@ const RecipeScreen = (props) => {
     else {
       recepie.ingredients.forEach(element => {
         const dbResult = addItem(element.sName, element.iAmount, element.sAcronym);
-
       });
 
       props.navigation.navigate('ShoppingList', { screen: 'ShoppingList', params: { recipe: "ok" } });
     }
-
-
-    /* console.log(recepie.ingredients);
-    recepie.ingredients.forEach(element => {
-    const dbResult = addItem(element.sName, element.iAmount, element.sAcronym);
-      
-    });
-   
-    props.navigation.navigate('ShoppingList', { screen: 'ShoppingList', params: { recipe: "ok" }}); */
   }
 
 
   return (
-
     <View style={{ maxHeight: "100%" }}>
-
       <Header
         leftComponent={<Icon
           name="back"
@@ -172,50 +126,53 @@ const RecipeScreen = (props) => {
         centerComponent={{ text: recepie.sName, style: styles.titletext }}
         containerStyle={{
           backgroundColor: 'darkred',
-
         }}
       />
-      <ScrollView>
-        <View>
-
-          <Card>
-            <Card.Image source={{ uri: recepie.sPic }} />
-            <Card.Divider />
-            <View style={[{ flexDirection: 'row', alignItems: 'center' }]}>
-              <View style={[{ flex: 1, flexDirection: 'row' }]}>
-                <Text>{recepie.iAmountPeople}</Text>
-                <Icon name="user" type="font-awesome-5"></Icon>
-                <Text>     {recepie.iCookingTime} minutes</Text>
-              </View>
-              <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', marginRight: -50 }]}>
-                <Icon name="shopping-cart" type="font-awesome-5" onPress={() => addToShopList()}></Icon>
-                <Icon name="heart" type="font-awesome-5"></Icon>
-              </View>
-            </View>
-            <Text style={{ fontWeight: "bold" }}>Description:</Text>
-            <Text>
-              {recepie.sDescription}
-            </Text>
-            <Text style={{ fontWeight: "bold" }}>Ingredients:</Text>
+      <View>
+        <Card>
 
 
-            <FlatList
-              data={recepie.ingredients}
-              renderItem={itemData =>
-                <View>
-                  <Text>-{itemData.item.iAmount} {itemData.item.sAcronym} {itemData.item.sName}</Text>
+
+          <FlatList
+            ListHeaderComponent={
+              <View>
+                <Card.Image source={{ uri: recepie.sPic }} />
+                <Card.Divider />
+                <View style={[{ flexDirection: 'row', alignItems: 'center' }]}>
+                  <View style={[{ flex: 1, flexDirection: 'row' }]}>
+                    <Text>{recepie.iAmountPeople}</Text>
+                    <Icon name="user" type="font-awesome-5"></Icon>
+                    <Text>     {recepie.iCookingTime} minutes</Text>
+                  </View>
+                  <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', marginRight: -80 }]}>
+                    <Icon name="shopping-cart" type="font-awesome-5" onPress={() => addToShopList()}></Icon>
+                  </View>
                 </View>
-              }
-              keyExtractor={(item) => item.iID.toString()}
-            />
-
-            <Text style={{ fontWeight: "bold" }}>Preperation:</Text>
-            <Text>
-              {recepie.sPreparation}
-            </Text>
-          </Card>
-        </View>
-      </ScrollView>
+                <Text style={{ fontWeight: "bold" }}>Description:</Text>
+                <Text>
+                  {recepie.sDescription}
+                </Text>
+                <Text style={{ fontWeight: "bold" }}>Ingredients:</Text>
+              </View>
+            }
+            data={recepie.ingredients}
+            renderItem={itemData =>
+              <View>
+                <Text>-{itemData.item.iAmount} {itemData.item.sAcronym} {itemData.item.sName}</Text>
+              </View>
+            }
+            keyExtractor={(item) => item.iID.toString()}
+            ListFooterComponent={
+              <View>
+                <Text style={{ fontWeight: "bold" }}>Preperation:</Text>
+                <Text>
+                  {recepie.sPreparation}
+                </Text>
+              </View>
+            }
+          />
+        </Card>
+      </View>
     </View>
 
 

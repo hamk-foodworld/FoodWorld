@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { addFavorite, deleteFavorite as deleteFavoriteLocale } from '../sqlconnection/dbFavorite';
-
-
-import { View, Text, TouchableWithoutFeedback, StyleSheet, Image, Button } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { Card, Icon } from 'react-native-elements'
 import styles from '../styles/Style'
-
 
 const RecipeItem = (props) => {
     const [favorite, setFavorite] = useState(props.favorite);
@@ -108,7 +105,6 @@ const RecipeItem = (props) => {
                 </View>
             </Card>
         </TouchableWithoutFeedback>
-
     );
 }
 

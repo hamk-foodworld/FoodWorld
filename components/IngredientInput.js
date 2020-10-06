@@ -10,9 +10,14 @@ const IngredientInput = (props) => {
     const [amount, setAmount] = useState(0);
     const [unit, setUnit] = useState(1);
     const [unitList, addUnit] = useState([]);
+    
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchUnits();
+        if (isLoading) {
+            setLoading(false);
+            fetchUnits();
+        }
     })
 
     async function fetchUnits() {
