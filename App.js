@@ -7,7 +7,6 @@ import HomeStackScreen from './screens/HomeScreen';
 import ShoppingList from './screens/ShoppingList';
 import FavoriteScreen from './screens/FavoriteScreen';
 import { Icon } from 'react-native-elements'
-import RecipeInput from './components/RecipeInput';
 
 
 import { init } from './sqlconnection/dbFavorite';
