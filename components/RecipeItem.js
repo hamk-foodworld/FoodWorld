@@ -8,17 +8,14 @@ const RecipeItem = (props) => {
     const [favorite, setFavorite] = useState(props.favorite);
 
     const nextPageHandler = () => {
-        console.log(`navigating to following recipe id: ${props.id}`);
         props.navigation.navigate('RecipeScreen', { screen: 'RecipeScreen', params: { recipeId: props.id } });
     }
 
     const favoriteHandler = () => {
         let reqBody = { iRecipeID: props.id, bState: false };
         if (favorite) {
-            console.log(`delete favorite recipe id: ${props.id}`)
             deleteFavoriteLocale(props.id);
         } else {
-            console.log(`saving favorite recipe id: ${props.id}`);
             saveFavoriteLocale();
             reqBody.bState = true;
         }
