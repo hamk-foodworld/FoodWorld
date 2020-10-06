@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, Image, StyleSheet, FlatList } from 'react-native';
-import { Header, Icon, ListItem, Card } from 'react-native-elements';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View, Text, FlatList } from 'react-native';
+import { Header, Icon, Card } from 'react-native-elements';
 import styles from '../styles/Style';
 import { addItem, fetchList, deleteFromListByName } from '../sqlconnection/dbShop';
-import readAllItems from './ShoppingList';
-
 
 const RecipeScreen = (props) => {
   const [hasError, setErrors] = useState(false);
@@ -14,14 +11,19 @@ const RecipeScreen = (props) => {
   const [ingredients, setingredients] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
-  //const [localdb, setLocaldb] = useState([]);
   const [newItemName, setNewItemName] = useState('');
   const [newItemAmount, setNewItemAmount] = useState('');
   const [newItemUnit, setNewItemUnit] = useState('');
 
+  useEffect(() => {
+    if (isLoading == true) {
+      setLoading(false);
+      fetchData();
+    }
+  });
+
   async function fetchData() {
     const recipeId = props.route.params.params.recipeId;
-
     let res = null;
     try {
       res = await fetch(`https://able-groove-288106.appspot.com/rest/foodservice/getRecipe/${recipeId}`);
@@ -41,12 +43,6 @@ const RecipeScreen = (props) => {
       console.log(someError);
     }
   }
-  useEffect(() => {
-    if (isLoading == true) {
-      setLoading(false);
-      fetchData();
-    }
-  });
 
   async function addToShopList() {
     try {
@@ -113,7 +109,6 @@ const RecipeScreen = (props) => {
     }
   }
 
-
   return (
     <View style={{ maxHeight: "100%" }}>
       <Header
@@ -130,9 +125,6 @@ const RecipeScreen = (props) => {
       />
       <View>
         <Card>
-
-
-
           <FlatList
             ListHeaderComponent={
               <View>
@@ -174,11 +166,7 @@ const RecipeScreen = (props) => {
         </Card>
       </View>
     </View>
-
-
   );
 }
-
-
 
 export default RecipeScreen;

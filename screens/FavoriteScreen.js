@@ -1,9 +1,8 @@
-import React, { useState, useEffect} from 'react';
-import { View, FlatList, Text, Button, Image, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, FlatList } from 'react-native';
 import styles from '../styles/Style';
 import { Header } from 'react-native-elements';
 import RecipeScreen from './RecipeScreen';
-import RecipeInputScreen from './RecipeInputScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Icon } from 'react-native-elements';
 import RecipeItem from '../components/RecipeItem';
@@ -14,38 +13,38 @@ const FavoriteScreen = (props) => {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-      if (isLoading) {
-          setLoading(false);
-          fetchFavoriteRecipes();
-      }
+    if (isLoading) {
+      setLoading(false);
+      fetchFavoriteRecipes();
+    }
   })
 
   const addToFavorite = () => {
-      fetchFavoriteRecipes();
+    fetchFavoriteRecipes();
   }
 
   async function fetchFavoriteRecipes() {
-      try {
-          const dbResult = await fetchAllFavorite();
-          const recipeIDList = dbResult.rows._array.map(row => row.recipeID);
-          getFavoriteRecipes(recipeIDList);
-      }
-      catch (err) {
-          console.log(err);
-      }
+    try {
+      const dbResult = await fetchAllFavorite();
+      const recipeIDList = dbResult.rows._array.map(row => row.recipeID);
+      getFavoriteRecipes(recipeIDList);
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 
   async function getFavoriteRecipes(reqBody) {
-      const response = await fetch("https://able-groove-288106.appspot.com/rest/foodservice/getFavRecipe",
-          {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(reqBody)
-          });
-      const responseData = await response.json();
-      addRecipe(responseData);
+    const response = await fetch("https://able-groove-288106.appspot.com/rest/foodservice/getFavRecipe",
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reqBody)
+      });
+    const responseData = await response.json();
+    addRecipe(responseData);
   }
 
   return (
@@ -93,6 +92,5 @@ function RecipesStackScreen() {
     </RecipesStack.Navigator>
   );
 }
-
 
 export default RecipesStackScreen;

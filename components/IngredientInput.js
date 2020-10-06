@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, TextInput, Text, Button, Modal } from 'react-native';
+import { View, Button, Modal } from 'react-native';
 import { Picker } from '@react-native-community/picker';
-
-import { Input, CheckBox, ListItem, Icon } from 'react-native-elements';
+import { Input } from 'react-native-elements';
+import styles from '../styles/Style';
 
 const IngredientInput = (props) => {
-
     const [name, setName] = useState('');
     const [amount, setAmount] = useState(0);
     const [unit, setUnit] = useState(1);
     const [unitList, addUnit] = useState([]);
-    
+
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -69,10 +68,10 @@ const IngredientInput = (props) => {
                 </Picker>
 
                 <View style={styles.buttonView}>
-                    <View style={styles.button}>
+                    <View style={styles.button2}>
                         <Button color='red' title="Cancel" onPress={cancelIngredient} />
                     </View>
-                    <View style={styles.button}>
+                    <View style={styles.button2}>
                         <Button color='green' title="Add" onPress={addIngredient} />
                     </View>
                 </View>
@@ -80,25 +79,5 @@ const IngredientInput = (props) => {
         </Modal>
     );
 }
-
-const styles = StyleSheet.create({
-    formStyle: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: "center"
-    },
-    buttonView: {
-        width: '60%',
-        flexDirection: 'row',
-        justifyContent: "space-around",
-    },
-    fullScreen: {
-        width: '100%'
-    },
-    button: {
-        width: '40%',
-    }
-});
 
 export default IngredientInput;

@@ -1,13 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, FlatList, CheckBox, map } from 'react-native';
-import { Header, Icon, ListItem, Avatar, Input, Button } from 'react-native-elements';
-
+import { View, FlatList } from 'react-native';
+import { Header, Icon, ListItem, Avatar, Input } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
 import RecipeListScreen from './RecipeListScreen';
 import styles from '../styles/Style';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
 
 const HomeScreen = (props) => {
   const [filter, changefilter] = useState("");
@@ -18,6 +16,13 @@ const HomeScreen = (props) => {
   const [countryfilter, setCountryFilter] = useState([]);
   const [countryrecipe, setCountryrecipe] = useState([]);
   const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (isLoading == true) {
+      setLoading(false);
+      newFetch();
+    }
+  });
 
   async function newFetch() {
     try {
@@ -36,9 +41,6 @@ const HomeScreen = (props) => {
           element.number = 0;
         }
         setCountry(responseCountry)
-
-
-
       });
     }
     catch (error) {
@@ -46,71 +48,9 @@ const HomeScreen = (props) => {
     }
   }
 
-  async function fetchData2() {
-    let res = null;
-    try {
-      res = await fetch("https://able-groove-288106.appspot.com/rest/foodservice/getCountryRecipe");
-    }
-    catch (error) {
-      setErrors(true);
-    }
-
-    try {
-      const responseData = await res.json();
-      setCountryrecipe(responseData);
-    }
-    catch (err) {
-      setErrors(true);
-      setSomeErrors("ERROR: " + hasError + " my error " + err);
-      console.log(someError);
-    }
-  }
-  async function fetchData() {
-    let res = null;
-    try {
-      res = await fetch("https://able-groove-288106.appspot.com/rest/foodservice/getCountry");
-    }
-    catch (error) {
-      setErrors(true);
-    }
-
-    try {
-      const responseData = await res.json();
-
-
-      setCountry(responseData);
-    }
-    catch (err) {
-      setErrors(true);
-      setSomeErrors("ERROR: " + hasError + " my error " + err);
-      console.log(someError);
-    }
-  }
-  useEffect(() => {
-    if (isLoading == true) {
-      setLoading(false);
-      newFetch();
-    }
-  });
   const searchContacts = (enteredText) => {
-
     changefilter(String(enteredText).toLowerCase());
   };
-  {/* const filterList = () => {
-    let i = 0;
-    console.log(country)
-      while(i < country.length){
-        console.log("testing lfbzstsbfojfsbo");
-        i+=1;
-        countryrecipe.forEach(cr =>{
-          if(c.iCountryID === cr.iCountryID){
-              setCountryFilter(c);
-              console.log(c);
-          }
-        });
-      };
-  };*/}
-
 
   return (
     <View style={{ maxHeight: '100%' }}>
@@ -121,14 +61,12 @@ const HomeScreen = (props) => {
           backgroundColor: 'darkred',
         }}
       />
-
       <Input placeholder='Country name'
         leftIcon={{ type: 'font-awesome', name: 'search' }}
         onChangeText={searchContacts}
       />
       <View >
         {isSelected ?
-
           <FlatList
             data={country.filter(country => String(String(country.sName).toLowerCase()).startsWith(filter)).filter(country => country.number > 0)}
             renderItem={({ item }) => (
@@ -165,12 +103,8 @@ const HomeScreen = (props) => {
         }
       </View>
     </View>
-
-
   );
 }
-
-
 
 const HomeStack = createStackNavigator();
 
@@ -182,8 +116,5 @@ function HomeStackScreen() {
     </HomeStack.Navigator>
   );
 }
-
-
-
 
 export default HomeStackScreen;

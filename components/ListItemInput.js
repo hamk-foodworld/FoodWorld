@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Modal, Button } from 'react-native';
+import { View, Modal, Button } from 'react-native';
 import { addItem } from '../sqlconnection/dbShop';
 import { Header, Icon, Input } from 'react-native-elements';
 import { Picker } from '@react-native-community/picker';
 import styles from '../styles/Style';
 
 const ListItemInput = (props) => {
-
-
     const [newItemName, setNewItemName] = useState('');
     const [newItemAmount, setNewItemAmount] = useState('');
     const [newItemUnit, setNewItemUnit] = useState('');
@@ -23,7 +21,6 @@ const ListItemInput = (props) => {
         setNewItemUnit(enteredText);
     }
 
-
     const addThisItem = () => {
         saveItem();
         setNewItemAmount("");
@@ -35,26 +32,19 @@ const ListItemInput = (props) => {
 
     async function saveItem() {
         try {
-
             const dbResult = await addItem(newItemName, newItemAmount, selectedValue);
-            console.log(dbResult);
         }
         catch (err) {
             console.log(err);
         }
-        finally {
-
-
-        }
     }
+
     const cancelItem = () => {
         props.onCancelItem();
-        // setFish('');
     }
+
     return (
-
         <Modal visible={props.visibility} animationType="slide">
-
             <Header
                 leftComponent={<Icon
                     name="back"
@@ -69,17 +59,14 @@ const ListItemInput = (props) => {
                     maxHeight: 55
                 }}
             />
-
             <View style={styles.formStyle2}>
                 <Input label="Name" onChangeText={nameInputHandler} />
                 <Input label="Amount" onChangeText={amountInputHandler} />
-
                 <Picker
                     selectedValue={selectedValue}
                     style={styles.fullScreen}
                     onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                 >
-                    
                     <Picker.Item label="none" value="" />
                     <Picker.Item label="gram" value="g" />
                     <Picker.Item label="kilogram" value="kg" />
@@ -105,10 +92,7 @@ const ListItemInput = (props) => {
                 </View>
             </View>
         </Modal>
-
     );
 }
-
-
 
 export default ListItemInput;
