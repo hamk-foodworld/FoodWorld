@@ -10,7 +10,14 @@ let fontfamilyText = "sans-serif";
 const styles = StyleSheet.create({
 
   titletext: {
-    fontSize: 35,
+    fontSize: 33,
+    fontFamily: fontFamilyTitle,
+    color: white,
+    padding: 10,
+    fontWeight: "bold",
+  },
+  titletextsmall: {
+    fontSize: 20,
     fontFamily: fontFamilyTitle,
     color: white,
     padding: 10,
@@ -27,7 +34,12 @@ const styles = StyleSheet.create({
   },
   iconText: {
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginLeft: 15,
+  },
+  iconView: {
+    flex: 1, 
+    flexDirection: 'row',
   },
   button: {
     backgroundColor: 'green',
@@ -39,15 +51,6 @@ const styles = StyleSheet.create({
   },
   screenLayout: {
     maxHeight: '100%'
-  },
-  padding: {
-    maxHeight: '81%',
-  },
-  formStyle: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: "center"
   },
   formStyle2: {
     flex: 1,
@@ -66,6 +69,16 @@ const styles = StyleSheet.create({
   },
   button2: {
     width: '40%',
+  },
+  bold:{
+    fontWeight: "bold"
+  },
+  recipeTitle:{
+    fontWeight: "bold", 
+    marginTop:5 
+  },
+  mbot:{
+    marginBottom:5,
   }
 });
 

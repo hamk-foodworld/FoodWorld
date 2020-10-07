@@ -95,7 +95,7 @@ const RecipeInputScreen = (props) => {
         }}
 
       />
-      <ScrollView>
+      <ScrollView style={{marginTop:5}}>
         <Input label="Name" onChangeText={nameInputHandler} />
         <Input label="Description" onChangeText={descriptionInputHandler} />
         <Input label="Preparation time" onChangeText={preperationTimeInputHandler} />
@@ -122,10 +122,12 @@ const RecipeInputScreen = (props) => {
           checked={gluten}
           onPress={() => setGluten(!gluten)}
         />
-        <Button
-          title="Add ingredient"
-          onPress={() => setVisibility(true)}
-        />
+          <Button
+            title="Add ingredient" 
+            containerStyle={{alignItems:"center", marginTop:5 ,marginBottom:5}}
+            buttonStyle={{width:"94%", backgroundColor:"green"}}
+            onPress={() => setVisibility(true)}
+          />
         <IngredientInput visibility={isVisible} onAddIngredient={addIngredientToList} onCancelIngredient={cancelIngredientToList} />
         <View>
           {
@@ -138,10 +140,12 @@ const RecipeInputScreen = (props) => {
             ))
           }
         </View>
-        <Button
-          title="Save recipe"
-          onPress={addRecipe}
-        />
+          <Button
+          containerStyle={{alignItems:"center", marginBottom:5}}
+          buttonStyle={{width:"94%", backgroundColor:"darkgreen"}}
+            title="Save recipe"
+            onPress={addRecipe}
+          />
       </ScrollView>
     </View>
   );

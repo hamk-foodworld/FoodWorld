@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, Modal, Button } from 'react-native';
+import { View, Modal} from 'react-native';
 import { addItem } from '../sqlconnection/dbShop';
-import { Header, Icon, Input } from 'react-native-elements';
+import { Header, Icon, Input, Button } from 'react-native-elements';
 import { Picker } from '@react-native-community/picker';
 import styles from '../styles/Style';
 
@@ -84,10 +84,10 @@ const ListItemInput = (props) => {
 
                 <View style={styles.buttonView}>
                     <View style={styles.button2}>
-                        <Button color='red' title="Cancel" onPress={cancelItem} />
+                        <Button buttonStyle={{ backgroundColor: 'darkred' }} title="Cancel" onPress={cancelItem} />
                     </View>
                     <View style={styles.button2}>
-                        <Button color='green' title="Add" onPress={addThisItem} />
+                        <Button buttonStyle={{ backgroundColor: 'darkgreen' }} title="Add" onPress={addThisItem} />
                     </View>
                 </View>
             </View>

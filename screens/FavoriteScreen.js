@@ -56,7 +56,7 @@ const FavoriteScreen = (props) => {
         }}
         rightComponent={<Icon name="repeat" type="font-awesome" color="white" onPress={() => fetchFavoriteRecipes()} />}
       />
-      <FlatList
+      <FlatList style={styles.mbot}
         onpress
         keyExtractor={item => item.iRecipeID.toString()}
         data={recipeList}
