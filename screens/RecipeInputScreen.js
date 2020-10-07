@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import styles from '../styles/Style';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Alert, TouchableOpacity } from 'react-native';
 import { Header, Icon, Input, CheckBox, ListItem, Button } from 'react-native-elements';
 import IngredientInput from '../components/IngredientInput';
+
 
 const RecipeInputScreen = (props) => {
   const [ingredientList, addIngredient] = useState([]);
@@ -13,7 +14,7 @@ const RecipeInputScreen = (props) => {
   const [description, setDescription] = useState('');
   const [preparationTime, setPreperationTime] = useState(0);
   const [preperation, setPreperation] = useState('');
-  const [amountPeople, setAmountPeople] = useState(1);
+  const [amountPeople, setAmountPeople] = useState(0);
   const [pictureUrl, setPictureUrl] = useState('');
 
   const [vegetarian, setVegetarian] = useState(false);
@@ -40,7 +41,14 @@ const RecipeInputScreen = (props) => {
     setPictureUrl(enteredText);
   }
 
+  function  deleteIngredient(i){
+    addIngredient(ingredientList=>{
+      return ingredientList.filter((fish) =>ingredientList.indexOf(fish) !== i);
+    });
+  }
+
   const addRecipe = () => {
+    var regExp = /([a-zA-Z])|,|\./g;
     const newRecipe = {
       sName: name,
       iCookingTime: preparationTime,
@@ -55,7 +63,20 @@ const RecipeInputScreen = (props) => {
       iCountryID: props.route.params.countryId,
       ingredients: ingredientList.map(i => ({ sName: i.name, iAmount: i.amount, iUnit: i.unit.id })),
     };
-    addData(newRecipe);
+    if (newRecipe.ingredients.length == 0) {
+      Alert.alert("Please add at least one ingredient");
+
+    } else if(regExp.test(newRecipe.iCookingTime) || regExp.test(newRecipe.iAmountPeople)) {
+      Alert.alert("Please only add whole numbers in 'preparation time' and 'amount of people'");
+    }
+     else if (newRecipe.sName == "" || newRecipe.iCookingTime == 0 || newRecipe.sDescription == "" || newRecipe.iAmountPeople == 0 ||
+      newRecipe.sPreparation == "" || newRecipe.sPic == "") {
+      Alert.alert("Please fill in all the fields");
+
+    } else {
+      addData(newRecipe);
+    }
+
   }
 
   async function addData(reqBody) {
@@ -95,7 +116,7 @@ const RecipeInputScreen = (props) => {
         }}
 
       />
-      <ScrollView style={{marginTop:5}}>
+      <ScrollView style={{ marginTop: 5 }}>
         <Input label="Name" onChangeText={nameInputHandler} />
         <Input label="Description" onChangeText={descriptionInputHandler} />
         <Input label="Preparation time" onChangeText={preperationTimeInputHandler} />
@@ -122,30 +143,32 @@ const RecipeInputScreen = (props) => {
           checked={gluten}
           onPress={() => setGluten(!gluten)}
         />
-          <Button
-            title="Add ingredient" 
-            containerStyle={{alignItems:"center", marginTop:5 ,marginBottom:5}}
-            buttonStyle={{width:"94%", backgroundColor:"green"}}
-            onPress={() => setVisibility(true)}
-          />
+        <Button
+          title="Add ingredient"
+          containerStyle={{ alignItems: "center", marginTop: 5, marginBottom: 5 }}
+          buttonStyle={{ width: "94%", backgroundColor: "green" }}
+          onPress={() => setVisibility(true)}
+        />
         <IngredientInput visibility={isVisible} onAddIngredient={addIngredientToList} onCancelIngredient={cancelIngredientToList} />
         <View>
           {
             ingredientList.map((item, i) => (
+              <TouchableOpacity activeOpacity={0.8} key={i} onLongPress={()=> deleteIngredient(i)}>
               <ListItem key={i} bottomDivider>
                 <ListItem.Content>
                   <ListItem.Title>{item.amount} {item.unit.name} {item.name}</ListItem.Title>
                 </ListItem.Content>
               </ListItem>
+              </TouchableOpacity>
             ))
           }
         </View>
-          <Button
-          containerStyle={{alignItems:"center", marginBottom:5}}
-          buttonStyle={{width:"94%", backgroundColor:"darkgreen"}}
-            title="Save recipe"
-            onPress={addRecipe}
-          />
+        <Button
+          containerStyle={{ alignItems: "center", marginBottom: 5 }}
+          buttonStyle={{ width: "94%", backgroundColor: "darkgreen" }}
+          title="Save recipe"
+          onPress={addRecipe}
+        />
       </ScrollView>
     </View>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Modal} from 'react-native';
+import { View, Modal, Alert} from 'react-native';
 import { addItem } from '../sqlconnection/dbShop';
 import { Header, Icon, Input, Button } from 'react-native-elements';
 import { Picker } from '@react-native-community/picker';
@@ -22,12 +22,21 @@ const ListItemInput = (props) => {
     }
 
     const addThisItem = () => {
+        var regExp = /([a-zA-Z])|,/g;
+        if(newItemName == "" || newItemAmount == "" ){
+            Alert.alert("Please enter a name and amount");
+        }
+        
+        else if(regExp.test(newItemAmount)){
+            Alert.alert("Please enter a number and use '.' as a delimiter");
+        } 
+        else {
         saveItem();
         setNewItemAmount("");
         setNewItemName("");
         setSelectedValue("");
         props.onAddItem();
-
+        }
     }
 
     async function saveItem() {

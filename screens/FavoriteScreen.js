@@ -19,15 +19,12 @@ const FavoriteScreen = (props) => {
     }
   })
 
-  const addToFavorite = () => {
-    fetchFavoriteRecipes();
-  }
-
+  
   async function fetchFavoriteRecipes() {
     try {
       const dbResult = await fetchAllFavorite();
       const recipeIDList = dbResult.rows._array.map(row => row.recipeID);
-      getFavoriteRecipes(recipeIDList);
+      await getFavoriteRecipes(recipeIDList);
     }
     catch (err) {
       console.log(err);
@@ -62,7 +59,7 @@ const FavoriteScreen = (props) => {
         data={recipeList}
         renderItem={itemData =>
           <RecipeItem
-            onAddFavorite={addToFavorite}
+            
             navigation={props.navigation}
             id={itemData.item.iRecipeID}
             title={itemData.item.sName}

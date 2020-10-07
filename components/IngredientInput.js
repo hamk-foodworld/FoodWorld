@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Modal } from 'react-native';
+import { View, Modal, Alert } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import { Input, Button, Header, Icon } from 'react-native-elements';
 import styles from '../styles/Style';
@@ -34,12 +34,24 @@ const IngredientInput = (props) => {
     }
 
     const addIngredient = () => {
-        const unitName = unitList.filter(v => v.iID == unit)[0].sName;
-        const unitObj = { id: unit, name: unitName }
-        props.onAddIngredient(name, amount, unitObj);
-        setName('');
-        setAmount(0);
-        setUnit(1);
+        var regExp = /([a-zA-Z])|,/g;
+        if(name == "" || amount == 0 ){
+            Alert.alert("Please enter a name and amount");
+        }
+        
+        else if(regExp.test(amount)){
+            Alert.alert("Please enter a number and use '.' as a delimiter");
+        } 
+        else {
+            const unitName = unitList.filter(v => v.iID == unit)[0].sName;
+            const unitObj = { id: unit, name: unitName }
+            props.onAddIngredient(name, amount, unitObj);
+            setName('');
+            setAmount(0);
+            setUnit(1);
+        }
+
+        
     }
 
     const cancelIngredient = () => {
@@ -87,7 +99,7 @@ const IngredientInput = (props) => {
                         <Button buttonStyle={{ backgroundColor: 'darkred' }} title="Cancel" onPress={cancelIngredient} />
                     </View>
                     <View style={styles.button2}>
-                        <Button buttonStyle={{ backgroundColor: 'green' }} title="Add" onPress={addIngredient} />
+                        <Button buttonStyle={{ backgroundColor: 'darkgreen' }} title="Add" onPress={addIngredient} />
                     </View>
                 </View>
             </View>
