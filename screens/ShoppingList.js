@@ -93,7 +93,7 @@ const ShoppingList = (props) => {
   }
 
   return (
-    <View style={{ maxHeight: '100%' }}>
+    <View style={styles.screenLayout}>
       <Header
         leftComponent={<Icon name="delete" type="material" size={30} color="white" onPress={deleteAll} />}
         centerComponent={{ text: 'ShoppingList', style: styles.titletext }}

@@ -53,7 +53,7 @@ const HomeScreen = (props) => {
   };
 
   return (
-    <View style={{ maxHeight: '100%' }}>
+    <View style={styles.screenLayout}>
       <Header
         centerComponent={{ text: 'Countries', style: styles.titletext }}
         rightComponent={<Icon name="filter" type="font-awesome" color="white" onPress={() => setSelection(!isSelected)} />}
@@ -61,11 +61,12 @@ const HomeScreen = (props) => {
           backgroundColor: 'darkred',
         }}
       />
-      <Input placeholder='Country name'
+      <Input 
+        
+        placeholder='Country name'
         leftIcon={{ type: 'font-awesome', name: 'search' }}
         onChangeText={searchContacts}
-      />
-      <View >
+      />  
         {isSelected ?
           <FlatList
             data={country.filter(country => String(String(country.sName).toLowerCase()).startsWith(filter)).filter(country => country.number > 0)}
@@ -101,7 +102,7 @@ const HomeScreen = (props) => {
             keyExtractor={(item) => item.iCountryID.toString()}
           />
         }
-      </View>
+      
     </View>
   );
 }

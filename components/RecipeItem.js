@@ -51,20 +51,25 @@ const RecipeItem = (props) => {
                 <Card.Title style={styles.title}>{props.title}</Card.Title>
                 <Card.Image source={{ uri: props.pic }} />
                 <View style={styles.icon}>
-                    <Icon
-                        solid
-                        name='heart'
-                        size={30}
-                        color='#9919d4'
-                        type='font-awesome-5'
-                    />
-                    <Text style={styles.iconText}>{props.rating}</Text>
+                    <View style={styles.iconView}>
+                        <Icon
+                            solid
+                            name='heart'
+                            size={30}
+                            color='#9919d4'
+                            type='font-awesome-5'
+                        />
+                        <Text style={styles.iconText}>{props.rating}</Text>
+                    </View>
+                    <View style={styles.iconView}>
                     <Icon
                         name='clock'
                         size={30}
                         type='font-awesome-5'
                     />
                     <Text style={styles.iconText}>{props.cookingTime}</Text>
+                    </View>
+
                     <Icon
                         solid={favorite}
                         name='heart'

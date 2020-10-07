@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, Modal } from 'react-native';
+import { View, Modal } from 'react-native';
 import { Picker } from '@react-native-community/picker';
-import { Input } from 'react-native-elements';
+import { Input, Button, Header, Icon } from 'react-native-elements';
 import styles from '../styles/Style';
 
 const IngredientInput = (props) => {
@@ -50,8 +50,23 @@ const IngredientInput = (props) => {
     }
 
     return (
+
         <Modal visible={props.visibility} animationType="slide">
-            <View style={styles.formStyle}>
+            <Header
+                leftComponent={<Icon
+                    name="back"
+                    type="entypo"
+                    color="white"
+                    onPress={cancelIngredient}
+                />}
+                centerComponent={{ text: 'Add Ingredient', style: styles.titletextsmall }}
+                containerStyle={{
+                    backgroundColor: 'darkred',
+                    paddingTop: 0,
+                    maxHeight: 55
+                }}
+            />
+            <View style={styles.formStyle2}>
                 <Input label="Name" onChangeText={nameInputHandler} />
                 <Input label="Amount" onChangeText={amountInputHandler} />
 
@@ -69,10 +84,10 @@ const IngredientInput = (props) => {
 
                 <View style={styles.buttonView}>
                     <View style={styles.button2}>
-                        <Button color='red' title="Cancel" onPress={cancelIngredient} />
+                        <Button buttonStyle={{ backgroundColor: 'darkred' }} title="Cancel" onPress={cancelIngredient} />
                     </View>
                     <View style={styles.button2}>
-                        <Button color='green' title="Add" onPress={addIngredient} />
+                        <Button buttonStyle={{ backgroundColor: 'green' }} title="Add" onPress={addIngredient} />
                     </View>
                 </View>
             </View>

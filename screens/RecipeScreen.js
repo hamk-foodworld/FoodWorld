@@ -3,6 +3,7 @@ import { View, Text, FlatList } from 'react-native';
 import { Header, Icon, Card } from 'react-native-elements';
 import styles from '../styles/Style';
 import { addItem, fetchList, deleteFromListByName } from '../sqlconnection/dbShop';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const RecipeScreen = (props) => {
   const [hasError, setErrors] = useState(false);
@@ -110,7 +111,7 @@ const RecipeScreen = (props) => {
   }
 
   return (
-    <View style={{ maxHeight: "100%" }}>
+    <View style={styles.screenLayout}>
       <Header
         leftComponent={<Icon
           name="back"
@@ -118,53 +119,61 @@ const RecipeScreen = (props) => {
           color="white"
           onPress={() => props.navigation.goBack()}
         />}
-        centerComponent={{ text: recepie.sName, style: styles.titletext }}
+        centerComponent={{ text: recepie.sName, style: styles.titletextsmall }}
         containerStyle={{
           backgroundColor: 'darkred',
         }}
       />
-      <View>
-        <Card>
-          <FlatList
-            ListHeaderComponent={
-              <View>
-                <Card.Image source={{ uri: recepie.sPic }} />
-                <Card.Divider />
-                <View style={[{ flexDirection: 'row', alignItems: 'center' }]}>
-                  <View style={[{ flex: 1, flexDirection: 'row' }]}>
-                    <Text>{recepie.iAmountPeople}</Text>
-                    <Icon name="user" type="font-awesome-5"></Icon>
-                    <Text>     {recepie.iCookingTime} minutes</Text>
-                  </View>
-                  <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', marginRight: -80 }]}>
-                    <Icon name="shopping-cart" type="font-awesome-5" onPress={() => addToShopList()}></Icon>
-                  </View>
+     
+      
+        <FlatList style={{ padding:3, margin:5, borderWidth: 1,
+    borderColor: "lightgrey",}}
+          ListHeaderComponent={
+            
+            <View>
+              <Card.Image source={{ uri: recepie.sPic }} />
+              <Card.Divider />
+              <View style={[{ flexDirection: 'row', alignItems: 'center'}]}>
+                <View style={[{ flex: 1, flexDirection: 'row' }]}>
+                  <Text style={styles.bold}>{recepie.iAmountPeople}</Text>
+                  <Icon name="user" type="font-awesome-5" style={{marginRight:10}}></Icon>
+                  <Text style={styles.bold}>{recepie.iCookingTime} </Text>
+                  <Icon
+                        name='clock'
+                        size={25}
+                        type='font-awesome-5'
+                    />
                 </View>
-                <Text style={{ fontWeight: "bold" }}>Description:</Text>
-                <Text>
-                  {recepie.sDescription}
-                </Text>
-                <Text style={{ fontWeight: "bold" }}>Ingredients:</Text>
+                <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', marginRight: -80 }]}>
+                  <Icon name="shopping-cart" type="font-awesome-5" onPress={() => addToShopList()}></Icon>
+                </View>
               </View>
-            }
-            data={recepie.ingredients}
-            renderItem={itemData =>
-              <View>
-                <Text>-{itemData.item.iAmount} {itemData.item.sAcronym} {itemData.item.sName}</Text>
-              </View>
-            }
-            keyExtractor={(item) => item.iID.toString()}
-            ListFooterComponent={
-              <View>
-                <Text style={{ fontWeight: "bold" }}>Preperation:</Text>
-                <Text>
-                  {recepie.sPreparation}
-                </Text>
-              </View>
-            }
-          />
-        </Card>
-      </View>
+              <Text style={styles.recipeTitle}>Description:</Text>
+              <Text>
+                {recepie.sDescription}
+              </Text>
+              <Text style={styles.recipeTitle}>Ingredients:</Text>
+            </View>
+            
+          }
+          data={recepie.ingredients}
+          renderItem={itemData =>
+            <View>
+              <Text>-{itemData.item.iAmount} {itemData.item.sAcronym} {itemData.item.sName}</Text>
+            </View>
+          }
+          keyExtractor={(item) => item.iID.toString()}
+          ListFooterComponent={
+            <View>
+              <Text style={styles.recipeTitle}>Preperation:</Text>
+              <Text style={styles.mbot}>
+                {recepie.sPreparation}
+              </Text>
+            </View>
+            
+          }
+        />
+      
     </View>
   );
 }

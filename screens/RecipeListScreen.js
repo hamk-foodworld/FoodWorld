@@ -61,7 +61,7 @@ const RecipeListScreen = (props) => {
         }}
 
       />
-      <FlatList
+      <FlatList style={styles.mbot}
         keyExtractor={item => item.iRecipeID.toString()}
         data={recipeList}
         renderItem={itemData =>
