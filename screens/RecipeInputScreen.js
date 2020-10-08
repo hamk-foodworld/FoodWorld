@@ -66,8 +66,11 @@ const RecipeInputScreen = (props) => {
     if (newRecipe.ingredients.length == 0) {
       Alert.alert("Please add at least one ingredient");
 
-    } else if(regExp.test(newRecipe.iCookingTime) || regExp.test(newRecipe.iAmountPeople)) {
-      Alert.alert("Please only add whole numbers in 'preparation time' and 'amount of people'");
+    } else if(regExp.test(newRecipe.iCookingTime)) {
+      Alert.alert("Please only add whole numbers in 'preparation time'");
+    }
+    else if(regExp.test(newRecipe.iAmountPeople)){
+      Alert.alert("Please only add whole numbers in 'amount of people'");
     }
      else if (newRecipe.sName == "" || newRecipe.iCookingTime == 0 || newRecipe.sDescription == "" || newRecipe.iAmountPeople == 0 ||
       newRecipe.sPreparation == "" || newRecipe.sPic == "") {
